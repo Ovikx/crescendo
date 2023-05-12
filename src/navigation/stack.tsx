@@ -1,8 +1,4 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { RootStackParamList } from './types';
 
-export type RootStackParamList = {
-    Home: undefined;
-    PracticeList: undefined;
-  }
-  
 export const Stack = createNativeStackNavigator<RootStackParamList>();
