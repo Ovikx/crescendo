@@ -1,6 +1,7 @@
 
 export type RootStackParamList = {
     Home: undefined;
-    PracticeList: undefined;
+    PracticeItems: undefined;
+    PracticeLists: undefined;
 }
   

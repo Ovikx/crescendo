@@ -1,6 +1,6 @@
 import { View, Text } from "react-native"
 
-export const PracticeList = () => {
+export const PracticeItems = () => {
     return (
         <View>
             <Text>This is your practice list!</Text>

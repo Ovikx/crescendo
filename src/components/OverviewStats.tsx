@@ -4,7 +4,7 @@ import { Card } from './Card';
 export const OverviewStats = () => {
     return (
         <SafeAreaView>
-            <SafeAreaView className='mt-24'>
+            <SafeAreaView className='mt-16'>
                 <Text className="text-white text-2xl font-bold left-11">Your stats</Text>
                 <SafeAreaView className='mx-auto w-11/12 mt-5'>
                     <Card>

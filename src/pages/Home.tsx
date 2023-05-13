@@ -15,7 +15,7 @@ export const Home = ({route, navigation}: Props) => {
             <OverviewStats />
             <RecentList />
             <SafeAreaView className='bottom-0 absolute'>
-                <NavBar />
+                <NavBar navigation={navigation}/>
             </SafeAreaView>
         </SafeAreaView>
     );
