@@ -1,8 +1,6 @@
 import { SafeAreaView, Text } from "react-native"
 import { OverviewStats as OverviewStats } from '../components/OverviewStats';
 import { RecentList } from '../components/RecentList';
-import { Card } from '../components/Card';
-import { Stack } from '../navigation/stack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NavBar } from '../components/NavBar';
 import { RootStackParamList } from '../navigation/types';
