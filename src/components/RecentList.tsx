@@ -1,6 +1,6 @@
 import { Text, SafeAreaView } from 'react-native';
 import { Card } from './Card';
-import { SearchBar } from 'react-native-screens';
+import { SearchBar } from './SearchBar';
 import { PracticeItem } from './PracticeItem';
 
 export const RecentList = () => {
@@ -11,8 +11,9 @@ export const RecentList = () => {
                 <SafeAreaView className='mx-auto w-11/12 mt-5'>
                     <Card>
                         <SafeAreaView className="">
-                            <SearchBar />
-                            <SafeAreaView className='w-1/12'>
+                            <SafeAreaView>
+                                <SearchBar />
+                                <Text className='text-white text-3xl'>HELLO</Text>
                                 <PracticeItem itemName='Greenpath'/>
                             </SafeAreaView>
                         </SafeAreaView>
