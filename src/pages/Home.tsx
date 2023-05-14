@@ -1,5 +1,5 @@
 import { SafeAreaView, Text } from "react-native"
-import { OverviewStats } from '../components/OverviewStats';
+import { OverviewStats as OverviewStats } from '../components/OverviewStats';
 import { RecentList } from '../components/RecentList';
 import { Card } from '../components/Card';
 import { Stack } from '../navigation/stack';
@@ -12,8 +12,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 export const Home = ({route, navigation}: Props) => {
     return (
         <SafeAreaView className="bg-gray-800 flex-1">
-            <OverviewStats />
-            <RecentList />
+            <OverviewStats textStyle='mt-16'/>
+            <RecentList textStyle='mt-6' />
             <SafeAreaView className='bottom-0 absolute'>
                 <NavBar navigation={navigation}/>
             </SafeAreaView>
