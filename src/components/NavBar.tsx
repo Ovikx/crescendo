@@ -9,7 +9,7 @@ type Props = {
 
 export const NavBar = ({navigation}: Props) => {
     return (
-        <SafeAreaView className='flex-row w-full h-20 bg-gray-900 justify-evenly'>
+        <SafeAreaView className='flex-row w-full h-16 bg-gray-900 justify-evenly'>
             <NavButton label='HOME' image='home' target='Home' navigation={navigation}/>
             <NavButton label='ITEMS' image='item' target='PracticeItems' navigation={navigation}/>
             <NavButton label='LISTS' image='list' target='PracticeLists' navigation={navigation}/>

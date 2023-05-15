@@ -14,8 +14,8 @@ export const NavButton = (props: Props) => {
     return (
         <Pressable onPress={() => props.navigation.navigate(props.target as keyof RootStackParamList)}>
             <SafeAreaView className='flex-col justify-center top-2 items-center'>
-                <Icon name={props.image} size={32} color='white' />
-                <Text className='text-white'>{props.label}</Text>
+                <Icon name={props.image} size={24} color='white' />
+                <Text className='text-white text-xs'>{props.label}</Text>
             </SafeAreaView>
         </Pressable>
     );
