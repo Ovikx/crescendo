@@ -16,6 +16,8 @@ export const Icon = ({name, size, color}: Props) => {
             return <MaterialIcons name="format-list-bulleted" size={size} color={color} />;
         case 'search':
             return <MaterialIcons name='search' size={size} color={color} />;
+        case 'menu':
+            return <MaterialIcons name='menu' size={size} color={color} />;
         default:
             return <MaterialIcons name="disabled-by-default" size={size} color={color} />;
     }
