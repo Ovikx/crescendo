@@ -5,7 +5,7 @@ import { Icon } from '../../assets/Images';
 export const RecentSearchList = () => {
     return (
         <SafeAreaView className='flex-col items-center h-auto flex-1'>
-            <SafeAreaView className='rounded-full bg-gray-600 flex-row h-10 p-2 w-3/4 my-4 items-center'>
+            <SafeAreaView className='rounded-full bg-gray-700 flex-row h-10 p-2 w-3/4 my-4 items-center'>
                 <SafeAreaView className='ml-4'>
                     <Icon name='search' size={30} color='#aaaaaa'/>
                 </SafeAreaView>

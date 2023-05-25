@@ -11,7 +11,7 @@ export const Home = ({route, navigation}: Props) => {
     const screenSize = Dimensions.get('window').height;
 
     return (
-        <SafeAreaView className="bg-gray-800 flex-1">
+        <SafeAreaView className="bg-gray-900 flex-1">
             <SafeAreaView className=''>
                 <OverviewStats textStyle='mt-16'/>
                 <RecentList textStyle='mt-6' />

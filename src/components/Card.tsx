@@ -6,7 +6,7 @@ interface Props {
 
 export const Card = ({children} : Props) => {
     return (
-    <SafeAreaView className='shadow-sm shadow-black rounded-2xl bg-gray-700'>
+    <SafeAreaView className='shadow-sm shadow-black rounded-2xl bg-gray-800'>
         {children}
     </SafeAreaView>
     );
