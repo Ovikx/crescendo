@@ -17,7 +17,7 @@ export const RecentSearchList = () => {
                 />
             </SafeAreaView>
             <ScrollView className='w-full' indicatorStyle='white'>
-                <SafeAreaView className='flex-col items-center'>
+                <SafeAreaView className='flex-col items-center w-11/12 mx-auto'>
                     <PracticeItem itemName='Greenpath' itemType='item'/>
                     <PracticeItem itemName='Moonlight Sonata' itemType='item'/>
                     <PracticeItem itemName='Major Scales' itemType='list'/>

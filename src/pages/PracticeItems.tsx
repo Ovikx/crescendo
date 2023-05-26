@@ -6,12 +6,11 @@ import { NavBar } from '../components/NavBar';
 import { RootStackParamList } from '../navigation/types';
 import { TopBar } from '../components/TopBar';
 import { Icon } from '../../assets/Images';
+import { PracticeItemLight } from '../components/PracticeItemLight';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PracticeItems'>;
 
 export const PracticeItems = ({route, navigation}: Props) => {
-    const screenSize = Dimensions.get('window').height;
-
     return (
         <View className="bg-gray-900 flex-1">
             <TopBar label='Practice Items'>
@@ -28,11 +27,17 @@ export const PracticeItems = ({route, navigation}: Props) => {
                     </SafeAreaView>
                 </SafeAreaView>
             </TopBar>
-            <SafeAreaView className='flex-1'>
-                <SafeAreaView className='bottom-0 absolute'>
-                    <NavBar navigation={navigation}/>
-                </SafeAreaView>
+            <SafeAreaView className='flex-col items-center mt-3 flex-1'>
+                <ScrollView className='w-11/12'>
+                    <PracticeItemLight itemName='Sicilienne' itemType='item'/>
+                    <PracticeItemLight itemName='Rachmaninoff Prelude in C-Sharp Minor' itemType='item'/>
+                    <PracticeItemLight itemName='Je Te Laisserai Des Mots' itemType='item'/>
+                    <PracticeItemLight itemName='Hornet' itemType='item'/>
+                </ScrollView>
             </SafeAreaView>
+            <View className='bottom-0 absolute'>
+                    <NavBar navigation={navigation}/>
+            </View>
         </View>
     );
 }
