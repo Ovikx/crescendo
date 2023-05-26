@@ -11,7 +11,7 @@ export const RecentSearchList = () => {
                 </SafeAreaView>
                 <TextInput 
                     className='h-8 flex-1 ml-4 grow'
-                    placeholder='Search'
+                    placeholder='Search recent items'
                     placeholderTextColor='#aaaaaa'
                     
                 />
