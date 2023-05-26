@@ -9,7 +9,7 @@ import { PracticeLists } from './src/pages/PracticeLists';
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{animation: 'fade', animationDuration: 150}}>
         <Stack.Screen name='Home' component={Home} options={{headerShown: false}}/>
         <Stack.Screen name='PracticeItems' component={PracticeItems} options={{headerShown: false}}/>
         <Stack.Screen name='PracticeLists' component={PracticeLists} options={{headerShown: false}}/>
