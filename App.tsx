@@ -1,10 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Stack } from './src/navigation/stack';
+
+// Pages
 import { PracticeItems } from './src/pages/PracticeItems';
 import { Home } from './src/pages/Home';
-import { Stack } from './src/navigation/stack';
 import { PracticeLists } from './src/pages/PracticeLists';
-
 
 export default function App() {
   return (
