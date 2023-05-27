@@ -15,15 +15,15 @@ export const Home = ({route, navigation}: Props) => {
         <View className="bg-gray-900 flex-1">
             <TopBar label='Home'/>
             <SafeAreaView className='flex-1'>
-                
                 <SafeAreaView className=''>
                     <OverviewStats textStyle='mt-10'/>
                     <RecentList textStyle='mt-6' />
                 </SafeAreaView>
-                <SafeAreaView className='bottom-0 absolute'>
-                    <NavBar navigation={navigation}/>
-                </SafeAreaView>
+                
             </SafeAreaView>
+            <View className='bottom-0 absolute'>
+                <NavBar navigation={navigation}/>
+            </View>
         </View>
     );
 }

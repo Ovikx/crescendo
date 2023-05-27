@@ -28,11 +28,9 @@ export const PracticeLists = ({route, navigation}: Props) => {
                     </SafeAreaView>
                 </SafeAreaView>
             </TopBar>
-            <SafeAreaView className='flex-1'>
-                <SafeAreaView className='bottom-0 absolute'>
-                    <NavBar navigation={navigation}/>
-                </SafeAreaView>
-            </SafeAreaView>
+            <View className='bottom-0 absolute'>
+                <NavBar navigation={navigation}/>
+            </View>
         </View>
     );
 }
