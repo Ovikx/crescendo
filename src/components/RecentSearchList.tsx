@@ -5,18 +5,7 @@ import { Icon } from '../../assets/Images';
 export const RecentSearchList = () => {
     return (
         <SafeAreaView className='flex-col items-center h-auto flex-1'>
-            <SafeAreaView className='rounded-full bg-gray-700 flex-row h-10 p-2 w-3/4 my-4 items-center'>
-                <SafeAreaView className='ml-4'>
-                    <Icon name='search' size={30} color='#aaaaaa'/>
-                </SafeAreaView>
-                <TextInput 
-                    className='h-8 flex-1 ml-4 grow'
-                    placeholder='Search recent items'
-                    placeholderTextColor='#aaaaaa'
-                    
-                />
-            </SafeAreaView>
-            <ScrollView className='w-full' indicatorStyle='white'>
+            <ScrollView className='w-full mt-3' indicatorStyle='white'>
                 <SafeAreaView className='flex-col items-center w-11/12 mx-auto'>
                     <PracticeItem itemName='Greenpath' itemType='item'/>
                     <PracticeItem itemName='Moonlight Sonata' itemType='item'/>
