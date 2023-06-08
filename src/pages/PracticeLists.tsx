@@ -6,6 +6,7 @@ import { NavBar } from '../components/NavBar';
 import { RootStackParamList } from '../navigation/types';
 import { TopBar } from '../components/TopBar';
 import { Icon } from '../../assets/Images';
+import { FloatingAddButton } from '../components/FloatingAddButton';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PracticeLists'>;
 
@@ -28,6 +29,9 @@ export const PracticeLists = ({route, navigation}: Props) => {
                     </SafeAreaView>
                 </SafeAreaView>
             </TopBar>
+            <SafeAreaView className='bottom-20 right-5 h-24 w-24 absolute'>
+                <FloatingAddButton />
+            </SafeAreaView>
             <View className='bottom-0 absolute'>
                 <NavBar navigation={navigation}/>
             </View>

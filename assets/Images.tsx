@@ -18,6 +18,8 @@ export const Icon = ({name, size, color}: Props) => {
             return <MaterialIcons name='search' size={size} color={color} />;
         case 'menu':
             return <MaterialIcons name='menu' size={size} color={color} />;
+        case 'add':
+            return <MaterialIcons name='add' size={size} color={color} />;
         default:
             return <MaterialIcons name="disabled-by-default" size={size} color={color} />;
     }

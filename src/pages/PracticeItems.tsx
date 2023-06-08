@@ -7,6 +7,7 @@ import { RootStackParamList } from '../navigation/types';
 import { TopBar } from '../components/TopBar';
 import { Icon } from '../../assets/Images';
 import { PracticeItemLight } from '../components/PracticeItemLight';
+import { FloatingAddButton } from '../components/FloatingAddButton';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PracticeItems'>;
 
@@ -34,6 +35,9 @@ export const PracticeItems = ({route, navigation}: Props) => {
                     <PracticeItemLight itemName='Je Te Laisserai Des Mots' itemType='item'/>
                     <PracticeItemLight itemName='Hornet' itemType='item'/>
                 </ScrollView>
+            </SafeAreaView>
+            <SafeAreaView className='bottom-20 right-5 h-24 w-24 absolute'>
+                <FloatingAddButton />
             </SafeAreaView>
             <View className='bottom-0 absolute'>
                     <NavBar navigation={navigation}/>

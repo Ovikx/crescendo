@@ -5,6 +5,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NavBar } from '../components/NavBar';
 import { RootStackParamList } from '../navigation/types';
 import { TopBar } from '../components/TopBar';
+import { FloatingAddButton } from '../components/FloatingAddButton';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -20,6 +21,9 @@ export const Home = ({route, navigation}: Props) => {
                     <RecentList textStyle='mt-6' />
                 </SafeAreaView>
                 
+            </SafeAreaView>
+            <SafeAreaView className='bottom-20 right-5 h-24 w-24 absolute'>
+                <FloatingAddButton />
             </SafeAreaView>
             <View className='bottom-0 absolute'>
                 <NavBar navigation={navigation}/>
