@@ -36,11 +36,11 @@ export const PracticeItems = ({route, navigation}: Props) => {
                     <PracticeItemLight itemName='Hornet' itemType='item'/>
                 </ScrollView>
             </SafeAreaView>
-            <SafeAreaView className='bottom-20 right-5 h-24 w-24 absolute'>
+            {/* <SafeAreaView className='bottom-20 right-5 h-24 w-24 absolute'>
                 <FloatingAddButton />
-            </SafeAreaView>
+            </SafeAreaView> */}
             <View className='bottom-0 absolute'>
-                    <NavBar navigation={navigation}/>
+                <NavBar navigation={navigation}/>
             </View>
         </View>
     );

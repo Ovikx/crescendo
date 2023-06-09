@@ -29,9 +29,9 @@ export const PracticeLists = ({route, navigation}: Props) => {
                     </SafeAreaView>
                 </SafeAreaView>
             </TopBar>
-            <SafeAreaView className='bottom-20 right-5 h-24 w-24 absolute'>
+            {/* <SafeAreaView className='bottom-20 right-5 h-24 w-24 absolute'>
                 <FloatingAddButton />
-            </SafeAreaView>
+            </SafeAreaView> */}
             <View className='bottom-0 absolute'>
                 <NavBar navigation={navigation}/>
             </View>

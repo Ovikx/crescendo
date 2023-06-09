@@ -6,11 +6,13 @@ import { NavBar } from '../components/NavBar';
 import { RootStackParamList } from '../navigation/types';
 import { TopBar } from '../components/TopBar';
 import { FloatingAddButton } from '../components/FloatingAddButton';
+import { useState } from 'react';
+import { NewItemModal } from '../components/NewItemModal';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 export const Home = ({route, navigation}: Props) => {
-    const screenSize = Dimensions.get('window').height;
+    const [modalVisible, setModalVisible] = useState(false);
 
     return (
         <View className="bg-gray-900 flex-1">
@@ -22,12 +24,13 @@ export const Home = ({route, navigation}: Props) => {
                 </SafeAreaView>
                 
             </SafeAreaView>
-            <SafeAreaView className='bottom-20 right-5 h-24 w-24 absolute'>
-                <FloatingAddButton />
-            </SafeAreaView>
             <View className='bottom-0 absolute'>
                 <NavBar navigation={navigation}/>
             </View>
+            <SafeAreaView className='bottom-20 right-5 h-24 w-24 absolute'>
+                <FloatingAddButton onPress={setModalVisible} visible={!modalVisible}/>
+            </SafeAreaView>
+            <NewItemModal visible={modalVisible}  setVisible={setModalVisible}/>
         </View>
     );
 }
