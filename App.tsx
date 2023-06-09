@@ -5,8 +5,16 @@ import { Stack } from './src/navigation/stack';
 import { PracticeItems } from './src/pages/PracticeItems';
 import { Home } from './src/pages/Home';
 import { PracticeLists } from './src/pages/PracticeLists';
+import { DB } from './src/db/db';
 
 export default function App() {
+  DB.transaction( tx => {
+    tx.executeSql(`
+      CREATE TABLE IF NOT EXISTS items
+      (name TEXT, seconds INTEGER)
+    `)
+  });
+  
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{animation: 'fade', animationDuration: 150}}>

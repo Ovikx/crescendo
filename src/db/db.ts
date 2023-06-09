@@ -1,3 +1,3 @@
 import * as SQLite from 'expo-sqlite';
 
-export const db = SQLite.openDatabase('db.crescendo');
+export const DB = SQLite.openDatabase('db.crescendo');
