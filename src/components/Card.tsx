@@ -1,12 +1,15 @@
+import { styled } from 'nativewind';
 import { SafeAreaView } from "react-native";
+import { SafeAreaViewProps } from 'react-native-safe-area-context';
 
-interface Props {
+interface Props extends SafeAreaViewProps {
     children: string | JSX.Element | JSX.Element[];
+    color: string;
 }
 
-export const Card = ({children} : Props) => {
+export const Card = ({children, color: color} : Props) => {
     return (
-    <SafeAreaView className='shadow-sm shadow-black rounded-2xl bg-gray-800'>
+    <SafeAreaView className={`${color} shadow-sm shadow-black rounded-2xl`}>
         {children}
     </SafeAreaView>
     );

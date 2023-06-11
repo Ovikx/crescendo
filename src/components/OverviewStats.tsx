@@ -12,7 +12,7 @@ const OverviewStatsUnstyled = ({textStyle, ...props}: PageProps) => {
         <SafeAreaView style={textStyle}>
             <Text className="text-white text-2xl font-bold left-11">Your stats</Text>
             <SafeAreaView className='mx-auto w-11/12 mt-3'>
-                <Card>
+                <Card color='bg-slate-800'>
                     <SafeAreaView className="flex-row">
                         <SafeAreaView className='flex-col items-center grow '>
                             <Text className="text-5xl text-white px-auto pt-8 font-bold">10</Text>
