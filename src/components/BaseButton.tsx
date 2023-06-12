@@ -1,14 +1,15 @@
 import { Pressable, Text } from 'react-native';
 
 interface Props {
-    text: string;
+    children: string | JSX.Element | JSX.Element[];
     color: string;
+    onPress: () => void;
 }
 
-export default function Button({text, color}: Props) {
+export default function Button({children, color, onPress}: Props) {
     return (
-        <Pressable className={`rounded-lg ${color}`}>
-            <Text>{text}</Text>
+        <Pressable className={`rounded-full ${color}`} onPress={onPress}>
+            {children}
         </Pressable>
     )
 }
