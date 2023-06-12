@@ -1,4 +1,4 @@
-import { SafeAreaView, Modal, Text, Pressable, TextInput } from 'react-native';
+import { View, SafeAreaView, Modal, Text, Pressable, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import { Card } from './Card';
 import { Icon } from '../../assets/Images';
@@ -37,19 +37,19 @@ export const NewItemModal = (props: Props) => {
             <SafeAreaView className='bg-black opacity-50 z-10 h-screen w-screen absolute' />
             <SafeAreaView className='flex my-auto w-11/12 mx-auto z-20'>
                 
-                <Card color='bg-gray-800'>
-                    <SafeAreaView className='absolute top-4 right-4 p-5'>
+                <Card color='bg-slate-800'>
+                    <View className='absolute top-0 right-0 p-5'>
                         <Pressable onPress={() => {
                             props.setVisible(false);
                             setInputText('');
                         }}>
                             <Icon name='close' color='white' size={32} />
                         </Pressable>
-                    </SafeAreaView>
+                    </View>
                     <SafeAreaView className='mt-10 flex flex-col items-center text-center'>
                         <Text className='text-white text-2xl font-bold w-5/6 text-center'>What do you want to practice?</Text>
                         <SafeAreaView className='mx-auto'>
-                            <SafeAreaView className='rounded-xl bg-gray-700 flex-row h-14 p-2 w-10/12 items-center my-6'>
+                            <SafeAreaView className='rounded-xl bg-slate-700 flex-row h-14 p-2 w-10/12 items-center my-6'>
                                 <TextInput
                                     clearButtonMode='unless-editing'
                                     className='h-full flex-1 ml-4 mr-2 grow text-white'

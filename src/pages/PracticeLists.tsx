@@ -14,10 +14,10 @@ export const PracticeLists = ({route, navigation}: Props) => {
     const screenSize = Dimensions.get('window').height;
 
     return (
-        <View className="bg-gray-900 flex-1">
+        <View className="bg-slate-900 flex-1">
             <TopBar label='Practice Lists'>
                 <SafeAreaView className='mx-auto'>
-                    <SafeAreaView className='rounded-full bg-gray-700 flex-row h-10 p-2 w-11/12 my-4 items-center'>
+                    <SafeAreaView className='rounded-full bg-slate-700 flex-row h-10 p-2 w-11/12 my-4 items-center'>
                         <SafeAreaView className='ml-4'>
                             <Icon name='search' size={30} color='#aaaaaa'/>
                         </SafeAreaView>

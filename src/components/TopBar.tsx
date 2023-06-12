@@ -9,7 +9,7 @@ interface Props {
 
 export const TopBar = ({children, label} : Props) => {
     return (
-    <SafeAreaView className='bg-gray-800 shadow-sm shadow-black'>
+    <SafeAreaView className='bg-slate-800 shadow-sm shadow-black'>
         <SafeAreaView className='relative items-center'>
             <SafeAreaView className='absolute left-4 top-2'>
                 <Icon name='menu' color='white' size={32}/>

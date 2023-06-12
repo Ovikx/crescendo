@@ -13,7 +13,7 @@ const RecentListUnstyled = ({textStyle, ...props}: PageProps) => {
         <SafeAreaView style={textStyle}>
             <Text className="text-white text-2xl font-bold left-11">Recent items</Text>
             <SafeAreaView className='mx-auto w-11/12 mt-3'>
-                <SafeAreaView className='shadow-sm shadow-black rounded-2xl bg-gray-800 h-3/4'>
+                <SafeAreaView className='h-3/4'>
                     <RecentSearchList />
                 </SafeAreaView>
             </SafeAreaView>

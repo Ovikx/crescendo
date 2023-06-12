@@ -15,7 +15,7 @@ export const Home = ({route, navigation}: Props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
-        <View className="bg-gray-900 flex-1">
+        <View className="bg-slate-900 flex-1">
             <TopBar label='Home'/>
             <SafeAreaView className='flex-1'>
                 <SafeAreaView className=''>

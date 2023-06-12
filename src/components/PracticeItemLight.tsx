@@ -8,7 +8,7 @@ interface Props {
 }
 export const PracticeItemLight = (props: Props) => {
     return (
-        <SafeAreaView className='shadow-sm shadow-black rounded-md bg-gray-800 flex-row justify-start items-center w-full my-1'>
+        <SafeAreaView className='shadow-sm shadow-black rounded-md bg-slate-800 flex-row justify-start items-center w-full my-1'>
             <SafeAreaView className='ml-4 my-4'>
                 <Icon name={props.itemType} size={32} color='white'/>
             </SafeAreaView>
