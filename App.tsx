@@ -17,7 +17,7 @@ export default function App() {
   
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{animation: 'fade', animationDuration: 150}}>
+      <Stack.Navigator screenOptions={{animation: 'none'}}>
         <Stack.Screen name='Home' component={Home} options={{headerShown: false}}/>
         <Stack.Screen name='PracticeItems' component={PracticeItems} options={{headerShown: false}}/>
         <Stack.Screen name='PracticeLists' component={PracticeLists} options={{headerShown: false}}/>
