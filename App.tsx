@@ -11,7 +11,7 @@ export default function App() {
   DB.transaction( tx => {
     tx.executeSql(`
       CREATE TABLE IF NOT EXISTS items
-      (name TEXT, seconds INTEGER)
+      (name TEXT, mastery INTEGER)
     `)
   });
   
