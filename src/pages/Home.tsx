@@ -27,7 +27,7 @@ export const Home = ({route, navigation}: Props) => {
             <View className='bottom-0 absolute'>
                 <NavBar navigation={navigation}/>
             </View>
-            <SafeAreaView className='bottom-20 right-5 h-24 w-24 absolute'>
+            <SafeAreaView className='bottom-20 right-5 h-20 w-20 absolute'>
                 <FloatingAddButton onPress={setModalVisible} visible={!modalVisible}/>
             </SafeAreaView>
             <NewItemModal visible={modalVisible}  setVisible={setModalVisible}/>

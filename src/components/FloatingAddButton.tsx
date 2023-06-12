@@ -11,8 +11,8 @@ export const FloatingAddButton = (props: Props) => {
         return (
             <SafeAreaView className='absolute bg-slate-700 rounded-full shadow-md'>
                 <Pressable className='p-5' onPress={() => {props.onPress(true); console.log('pressed!');}}>
-                    <SafeAreaView className='left-1'><Icon name='item' size={48} color='white' /></SafeAreaView>
-                    <SafeAreaView className='absolute top-1/3 left-1/3'><Icon name='add' size={32} color='white' /></SafeAreaView>
+                    <SafeAreaView className='left-1'><Icon name='item' size={32} color='white' /></SafeAreaView>
+                    <SafeAreaView className='absolute top-1/2 left-1/2'><Icon name='add' size={24} color='white' /></SafeAreaView>
                 </Pressable>
             </SafeAreaView>
         )
