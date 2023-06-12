@@ -1,9 +1,14 @@
 import { Pressable, Text } from 'react-native';
 
-export default function Button() {
+interface Props {
+    text: string;
+    color: string;
+}
+
+export default function Button({text, color}: Props) {
     return (
-        <Pressable className='rounded-lg bg-teal-400'>
-            <Text>PRESS ME</Text>
+        <Pressable className={`rounded-lg ${color}`}>
+            <Text>{text}</Text>
         </Pressable>
     )
 }
