@@ -1,8 +1,7 @@
 import * as SQLite from 'expo-sqlite';
 import { Table } from './types/types';
-import { ItemsTable } from '../src/db/tables';
 
-class ExpoORM {
+export class ExpoORM {
     db: SQLite.WebSQLDatabase;
 
     constructor(dbName: string) {
@@ -28,5 +27,3 @@ class ExpoORM {
         );
     }
 }
-
-export const DB = new ExpoORM('db.crescendo');
