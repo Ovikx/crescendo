@@ -1,8 +1,8 @@
 import * as SQLite from 'expo-sqlite';
-import { Table } from '../types/types';
-import { ItemsTable } from './tables';
+import { Table } from './types/types';
+import { ItemsTable } from '../src/db/tables';
 
-class DBHandler {
+class ExpoORM {
     db: SQLite.WebSQLDatabase;
 
     constructor(dbName: string) {
@@ -14,7 +14,7 @@ class DBHandler {
      * @param tableName Name of the table
      * @param columns An object mapping column names to their respective data types
      */
-    createTable(tableName: string, columns: Table) {
+    createTable<T>(tableName: string, columns: Table<T>) {
         const cols: string[] = [];
         for (const [colName, colType] of Object.entries(columns)) {
             cols.push(`${colName} ${colType}`);
@@ -29,4 +29,4 @@ class DBHandler {
     }
 }
 
-export const DB = new DBHandler('db.crescendo');
+export const DB = new ExpoORM('db.crescendo');

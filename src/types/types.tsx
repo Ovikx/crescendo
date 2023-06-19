@@ -1,6 +1,8 @@
-export enum ColumnTypes {
-    INTEGER = 'INTEGER',
-    TEXT = 'TEXT'
-}
+import { ColumnTypes } from '../../db-core/types/types';
+import { Table } from '../../db-core/types/types';
 
-export type Table = {[k: string]: ColumnTypes};
+// DB
+export interface PracticeItem {
+    name: string;
+    mastery: number;
+}
