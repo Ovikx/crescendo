@@ -6,14 +6,11 @@ import { PracticeItems } from './src/pages/PracticeItems';
 import { Home } from './src/pages/Home';
 import { PracticeLists } from './src/pages/PracticeLists';
 import { DB } from './src/db/db';
+import { ItemsTable } from './src/db/tables';
 
 export default function App() {
-  DB.transaction( tx => {
-    tx.executeSql(`
-      CREATE TABLE IF NOT EXISTS items
-      (name TEXT, mastery INTEGER)
-    `)
-  });
+  // Create tables
+  DB.createTable('items', ItemsTable);
   
   return (
     <NavigationContainer>
