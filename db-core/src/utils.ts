@@ -1,2 +1,2 @@
 import { Columns } from '../types/types';
-import { TableObj } from './table';
+import { Table } from './table';
