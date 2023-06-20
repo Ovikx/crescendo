@@ -1,7 +1,12 @@
-import { ColumnTypes, Table } from '../../db-core/types/types';
-import { PracticeItem } from '../types/types';
+import { ColumnTypes, Columns } from '../../db-core/types/types';
+import { PracticeItem, PracticeSession } from '../types/types';
 
-export const ItemsTable: Table<PracticeItem> = {
-    name: ColumnTypes.TEXT,
-    mastery: ColumnTypes.INTEGER
+export const ItemsMappings: Columns<PracticeItem> = {
+    name: ColumnTypes.Text,
+    mastery: ColumnTypes.Integer
+}
+
+export const PracticeSessionsMappings: Columns<PracticeSession> = {
+    itemName: ColumnTypes.Text,
+    seconds: ColumnTypes.Integer
 }

@@ -1,5 +1,6 @@
 import { SafeAreaView, Pressable } from 'react-native';
 import { Icon } from '../../assets/Images';
+import { DB } from '../db/db';
 
 interface Props {
     visible: boolean;
@@ -10,7 +11,7 @@ export const FloatingAddButton = (props: Props) => {
     if (props.visible) {
         return (
             <SafeAreaView className='absolute bg-slate-700 rounded-full shadow-md'>
-                <Pressable className='p-5' onPress={() => props.onPress(true)}>
+                <Pressable className='p-5' onPress={() => {props.onPress(true); console.log(DB.tables)}}>
                     <SafeAreaView className='left-1'><Icon name='item' size={32} color='white' /></SafeAreaView>
                     <SafeAreaView className='absolute top-1/2 left-1/2'><Icon name='add' size={24} color='white' /></SafeAreaView>
                 </Pressable>
