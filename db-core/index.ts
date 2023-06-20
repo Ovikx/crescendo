@@ -50,4 +50,14 @@ export class ExpoORM {
             () => console.log(`[OK] Executed SQL: ${statement}`)
         ); // TODO: replace success callback with a user-provided callback
     }
+
+    /**
+     * Executes an SQL statement (this is here in case an operation cannot be performed using the built-in methods)
+     * @param statement SQL statement to execute
+     */
+    executeSql(statement: string) {
+        this.db.transaction(
+            tx => tx.executeSql(statement)
+        );
+    }
 }
