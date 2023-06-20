@@ -1,15 +1,14 @@
 import { ExpoORM } from '../../db-core';
-import { createTable } from '../../db-core/src/utils';
-import { Table } from '../../db-core/types/types';
+import { TableObj } from '../../db-core/src/table';
 import { ItemsMappings, PracticeSessionsMappings } from './tables';
 
 const tables = [
-    createTable('items', ItemsMappings),
-    createTable('sessions', PracticeSessionsMappings)
+    new TableObj('items', ItemsMappings),
+    new TableObj('sessions', PracticeSessionsMappings)
 ]
 
-class ORMWrapper extends ExpoORM {
-    constructor(dbName: string, tables: Table<unknown>[]) {
+export class ORMWrapper extends ExpoORM {
+    constructor(dbName: string, tables: TableObj<unknown>[]) {
         super(dbName, tables);
         console.log(this.tables);
     }
