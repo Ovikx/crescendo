@@ -47,7 +47,7 @@ export const PracticeItems = ({route, navigation}: Props) => {
                     </SafeAreaView>
                 </SafeAreaView>
             </TopBar>
-            <SafeAreaView className='flex-col items-center mt-3 flex-1'>
+            <SafeAreaView className='flex-col items-center mt-3 flex-1 mb-20'>
                 <ScrollView className='w-11/12'>
                     {practiceItems}
                 </ScrollView>
