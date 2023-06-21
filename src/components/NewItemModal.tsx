@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Card } from './Card';
 import { Icon } from '../../assets/Images';
 import BaseButton from './BaseButton';
+import { DB } from '../db/db';
 
 interface Props {
     visible: boolean;
@@ -19,6 +20,10 @@ export const NewItemModal = (props: Props) => {
         if (inputText.length > 0) {
             props.setVisible(false);
             console.log(inputText);
+            DB.itemsTable.insert({
+                name: inputText,
+                mastery: 0
+            });
         }
     }
     const [inputText, setInputText] = useState('');

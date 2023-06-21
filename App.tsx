@@ -9,7 +9,6 @@ import { DB } from './src/db/db';
 import { ItemsMappings } from './src/db/tables';
 
 export default function App() {
-  DB;
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{animation: 'none'}}>
