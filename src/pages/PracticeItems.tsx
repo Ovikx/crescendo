@@ -11,17 +11,21 @@ import { FloatingAddButton } from '../components/FloatingAddButton';
 import { useState, useEffect } from 'react';
 import { DB } from '../db/db';
 import { PracticeItem } from '../types/types';
+import { NewItemModal } from '../components/NewItemModal';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PracticeItems'>;
 
 export const PracticeItems = ({route, navigation}: Props) => {
     const [items, setItems] = useState<PracticeItem[]>([]);
+    const [modalVisible, setModalVisible] = useState(false);
+
     useEffect(
         () => {
             DB.itemsTable.select({}, setItems);
         },
-        []
-    )
+        [modalVisible]
+    );
+
     const practiceItems: JSX.Element[] = [];
     for (let i = 0; i < items.length; i++) {
         const item = items[i];
@@ -48,9 +52,10 @@ export const PracticeItems = ({route, navigation}: Props) => {
                     {practiceItems}
                 </ScrollView>
             </SafeAreaView>
-            {/* <SafeAreaView className='bottom-20 right-5 h-24 w-24 absolute'>
-                <FloatingAddButton />
-            </SafeAreaView> */}
+            <SafeAreaView className='bottom-20 right-5 h-20 w-20 absolute'>
+                <FloatingAddButton onPress={setModalVisible} visible={true}/>
+            </SafeAreaView>
+            <NewItemModal visible={modalVisible}  setVisible={setModalVisible}/>
             <View className='bottom-0 absolute'>
                 <NavBar navigation={navigation}/>
             </View>
