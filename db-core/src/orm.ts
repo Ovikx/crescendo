@@ -20,7 +20,7 @@ export class ExpoORM {
      * @param columns An object literal mapping column names to their respective data types
      * @returns An SQL Table object that can perform CRUD operations
      */
-    initializeTable<T>(tableName: string, columns: Columns<T>): Table<T> {
+    initializeTable<T extends Object>(tableName: string, columns: Columns<T>): Table<T> {
         return new Table(this.database, tableName, columns);
     }
 }
