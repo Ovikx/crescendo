@@ -9,7 +9,7 @@ export class ORMWrapper extends ExpoORM {
     itemsTable: Table<PracticeItem>;
     sessionsTable: Table<PracticeSession>;
 
-    constructor(dbName: string, version=0, migrations?: Migrations) {
+    constructor(dbName: string, version=0, migrations?: Migrations, autoMigrate=false) {
         super(dbName, version, migrations);
         
         // Initialize the tables
@@ -18,8 +18,8 @@ export class ORMWrapper extends ExpoORM {
 
         // Create the tables
         this.itemsTable.createTable();
-        this.sessionsTable.createTable();
+        this.sessionsTable.createTable()
     }
 }
 
-export const DB = new ORMWrapper('db.crescendo', 1, migrations);
+export const DB = new ORMWrapper('db.crescendo', 0, migrations, true);

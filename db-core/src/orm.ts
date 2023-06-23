@@ -13,10 +13,11 @@ export class ExpoSQLiteORM {
      * 
      * @param dbName Name of the database
      */
-    constructor(dbName: string, version=0, migrations?: Migrations) {
+    constructor(dbName: string, version=0, migrations?: Migrations, autoMigrate=false) {
         this.database = SQLite.openDatabase(dbName);
         this.version = version;
         this.migrations = migrations;
+        if (autoMigrate) this.migrate(this.migrations);
     }
 
     /**
