@@ -1,4 +1,4 @@
-import { Dimensions, SafeAreaView, Text, View } from "react-native"
+import { SafeAreaView, View } from "react-native"
 import { OverviewStats } from '../components/OverviewStats';
 import { RecentList } from '../components/RecentList';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -11,7 +11,7 @@ import { NewItemModal } from '../components/NewItemModal';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-export const Home = ({route, navigation}: Props) => {
+export const Home = ({navigation}: Props) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     return (

@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, TextProps } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 import { Card } from './Card';
 import { SafeAreaViewProps } from 'react-native-safe-area-context';
 import { styled } from 'nativewind';
@@ -7,7 +7,7 @@ interface PageProps extends SafeAreaViewProps {
     textStyle?: SafeAreaViewProps['style'];
 }
 
-const OverviewStatsUnstyled = ({textStyle, ...props}: PageProps) => {
+const OverviewStatsUnstyled = ({textStyle}: PageProps) => {
     return (
         <SafeAreaView style={textStyle}>
             <Text className="text-white text-2xl font-bold left-11">Your stats</Text>

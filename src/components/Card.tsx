@@ -1,4 +1,3 @@
-import { styled } from 'nativewind';
 import { SafeAreaView } from "react-native";
 import { SafeAreaViewProps } from 'react-native-safe-area-context';
 

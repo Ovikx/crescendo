@@ -1,4 +1,4 @@
-import { Text, View, TextInput } from 'react-native';
+import { View, TextInput } from 'react-native';
 
 export const SearchBar = () => {
     return (

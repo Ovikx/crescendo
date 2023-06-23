@@ -1,6 +1,4 @@
-import { Text, SafeAreaView, TextInput, ScrollView, Dimensions } from 'react-native';
-import { PracticeItem } from './PracticeItem';
-import { Icon } from '../../assets/Images';
+import { SafeAreaView, ScrollView } from 'react-native';
 import { PracticeItemLight } from './PracticeItemLight';
 
 export const RecentSearchList = () => {

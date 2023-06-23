@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, Pressable, Image } from 'react-native';
+import { SafeAreaView, Text, Pressable } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { Icon } from '../../assets/Images';

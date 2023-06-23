@@ -1,4 +1,4 @@
-import { SafeAreaView, View } from "react-native";
+import { SafeAreaView } from "react-native";
 import { Icon } from '../../assets/Images';
 import { Text, Pressable } from 'react-native';
 

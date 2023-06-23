@@ -1,6 +1,4 @@
-import { Dimensions, SafeAreaView, ScrollView, Text, TextInput, View } from "react-native"
-import { OverviewStats } from '../components/OverviewStats';
-import { RecentList } from '../components/RecentList';
+import { SafeAreaView, ScrollView, TextInput, View } from "react-native"
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NavBar } from '../components/NavBar';
 import { RootStackParamList } from '../navigation/types';
@@ -15,7 +13,7 @@ import { NewItemModal } from '../components/NewItemModal';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PracticeItems'>;
 
-export const PracticeItems = ({route, navigation}: Props) => {
+export const PracticeItems = ({navigation}: Props) => {
     const [items, setItems] = useState<PracticeItem[]>([]);
     const [modalVisible, setModalVisible] = useState(false);
 

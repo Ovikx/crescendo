@@ -1,4 +1,4 @@
-import { Pressable, Text } from 'react-native';
+import { Pressable } from 'react-native';
 
 interface Props {
     children: string | JSX.Element | JSX.Element[];

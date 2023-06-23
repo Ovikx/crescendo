@@ -1,6 +1,3 @@
-import { Columns } from '../types/types';
-import { Table } from './table';
-
 /**
  * Tag to ensure that arbitrary migration SQL statements are formatted correctly during the migration process
  * @param strs String to validate

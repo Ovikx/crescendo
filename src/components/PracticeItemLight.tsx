@@ -1,5 +1,4 @@
-import { SafeAreaView, Text, Image } from 'react-native';
-import { Card } from './Card';
+import { SafeAreaView, Text } from 'react-native';
 import { Icon } from '../../assets/Images';
 
 interface Props {

@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, Pressable } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { NavButton } from './NavButton';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';

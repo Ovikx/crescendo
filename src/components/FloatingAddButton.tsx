@@ -1,6 +1,5 @@
 import { SafeAreaView, Pressable } from 'react-native';
 import { Icon } from '../../assets/Images';
-import { DB } from '../db/db';
 
 interface Props {
     visible: boolean;

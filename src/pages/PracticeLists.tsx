@@ -1,18 +1,13 @@
-import { Dimensions, SafeAreaView, ScrollView, Text, TextInput, View } from "react-native"
-import { OverviewStats } from '../components/OverviewStats';
-import { RecentList } from '../components/RecentList';
+import { SafeAreaView, TextInput, View } from "react-native"
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NavBar } from '../components/NavBar';
 import { RootStackParamList } from '../navigation/types';
 import { TopBar } from '../components/TopBar';
 import { Icon } from '../../assets/Images';
-import { FloatingAddButton } from '../components/FloatingAddButton';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PracticeLists'>;
 
-export const PracticeLists = ({route, navigation}: Props) => {
-    const screenSize = Dimensions.get('window').height;
-
+export const PracticeLists = ({navigation}: Props) => {
     return (
         <View className="bg-slate-900 flex-1">
             <TopBar label='Practice Lists'>
