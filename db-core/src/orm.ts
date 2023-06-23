@@ -30,6 +30,10 @@ export class ExpoSQLiteORM {
         return new Table(this.database, tableName, columns);
     }
 
+    /**
+     * Executes user-defined migration statements
+     * @param migrations Object that describes which SQL statement to execute based on the database version; if not provided, this instance's stored migration object is used
+     */
     migrate(migrations?: Migrations) {
         const activeMigrations = migrations ?? this.migrations;
         this.database.transaction(tx => {

@@ -17,4 +17,5 @@ export interface SelectOptions<T> {
     limit?: number;
 }
 
+/** Each key is the version number to migrate from and the associate value is the SQL statement to execute (TODO: support multiple SQL statements) */
 export type Migrations = {[k: number]: string};
