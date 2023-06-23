@@ -1,5 +1,3 @@
-import { PracticeItem } from '../../src/types/types';
-
 /** Enum to represent the various SQL data types */
 export enum ColumnTypes {
     Text = 'TEXT',
@@ -18,3 +16,5 @@ export interface SelectOptions<T> {
     /** Maximum number of returned rows */
     limit?: number;
 }
+
+export type Migrations = {[k: number]: string};

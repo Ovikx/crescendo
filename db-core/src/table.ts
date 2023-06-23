@@ -2,7 +2,7 @@ import { SelectOptions } from '../types/types';
 import { Columns } from '../types/types';
 import * as SQLite from 'expo-sqlite';
 
-export class Table<T extends Object> {
+export class Table<T extends object> {
     database: SQLite.WebSQLDatabase;
     name: string;
     columns: Columns<T>;
@@ -35,8 +35,8 @@ export class Table<T extends Object> {
             tx.executeSql(
                 `DROP TABLE IF EXISTS ${this.name}`,
                 undefined,
-                (tx, resultSet) => console.log('[OK] Dropped the table'),
-                (tx, err) => {
+                () => console.log('[OK] Dropped the table'),
+                (_tx, err) => {
                     console.log(err);
                     return false;
                 }
@@ -82,7 +82,7 @@ export class Table<T extends Object> {
             tx.executeSql(
                 statement,
                 values,
-                (tx, resultSet) => {
+                () => {
                     console.log(`[OK] Executed an INSERT`);
                 },
                 (tx, err) => {

@@ -1,1 +1,1 @@
-export { ExpoORM } from './src/orm';
+export { ExpoSQLiteORM as ExpoORM } from './src/orm';

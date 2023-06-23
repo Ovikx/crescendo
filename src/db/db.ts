@@ -1,14 +1,16 @@
 import { ExpoORM } from '../../db-core';
 import { Table } from '../../db-core/src/table';
+import { Migrations } from '../../db-core/types/types';
 import { PracticeItem, PracticeSession } from '../types/types';
+import { migrations } from './migrations';
 import { ItemsMappings, PracticeSessionsMappings } from './tables';
 
 export class ORMWrapper extends ExpoORM {
     itemsTable: Table<PracticeItem>;
     sessionsTable: Table<PracticeSession>;
 
-    constructor(dbName: string) {
-        super(dbName);
+    constructor(dbName: string, version=0, migrations?: Migrations) {
+        super(dbName, version, migrations);
         
         // Initialize the tables
         this.itemsTable = this.initializeTable('items', ItemsMappings);
@@ -20,4 +22,4 @@ export class ORMWrapper extends ExpoORM {
     }
 }
 
-export const DB = new ORMWrapper('db.crescendo');
+export const DB = new ORMWrapper('db.crescendo', 1, migrations);
