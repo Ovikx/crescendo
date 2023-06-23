@@ -11,6 +11,7 @@ npm-debug.*
 web-build/
 .env
 *testing*.ts
+.eslintrc.cjs
 
 # macOS
 .DS_Store
