@@ -27,7 +27,7 @@ export const PracticeItems = ({navigation}: Props) => {
     const practiceItems: JSX.Element[] = [];
     for (let i = 0; i < items.length; i++) {
         const item = items[i];
-        practiceItems.push(<PracticeItemLight itemName={item.name} itemType='item'/>);
+        practiceItems.push(<PracticeItemLight key={i} itemName={item.name} itemType='item'/>);
     }
     return (
         <View className="bg-slate-900 flex-1">
