@@ -10,7 +10,7 @@ export class ORMWrapper extends ExpoORM {
     sessionsTable: Table<PracticeSession>;
 
     constructor(dbName: string, version=0, migrations?: Migrations, autoMigrate=false) {
-        super(dbName, version, migrations);
+        super(dbName, version, migrations, autoMigrate);
         
         // Initialize the tables
         this.itemsTable = this.initializeTable('items', ItemsMappings);
