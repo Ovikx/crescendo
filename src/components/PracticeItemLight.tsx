@@ -11,7 +11,7 @@ export const PracticeItemLight = (props: Props) => {
             <SafeAreaView className='ml-4 my-4'>
                 <Icon name={props.itemType} size={32} color='white'/>
             </SafeAreaView>
-            <Text className='flex-1 text-white font-medium text-lg ml-4 mr-8' ellipsizeMode='tail' numberOfLines={1}>{props.itemName}</Text>
+            <Text className='flex-1 text-white font-medium text-lg ml-4 mr-8' ellipsizeMode='tail' numberOfLines={2} adjustsFontSizeToFit={true} minimumFontScale={0.5}>{props.itemName}</Text>
         </SafeAreaView>
     )
 }
