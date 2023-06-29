@@ -30,10 +30,3 @@ export const SideNavBarContainer = ({children} : Props) => {
         </>
     );
 }
-
-/**
- * somehow have to pass the drawer toggle callback to the child components that need it
- * 
- */
-
-SideNavBarContainer

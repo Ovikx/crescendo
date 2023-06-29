@@ -45,7 +45,5 @@ const styles = StyleSheet.create({
         height: height,
         width: width,
         zIndex: 999,
-        shadowColor: '#ffffff',
-
     }
 })
