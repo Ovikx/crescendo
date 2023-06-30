@@ -1,8 +1,11 @@
-import { useRef, useState } from 'react';
-import { Animated, Pressable, SafeAreaView } from "react-native";
+import { createContext, useRef, useState } from 'react';
+import { Animated, Pressable, SafeAreaView, View } from "react-native";
 import { SafeAreaViewProps } from 'react-native-safe-area-context';
 import { SideNavBar, startAnimation } from './SideNavBar';
 import { Icon } from '../../assets/Images';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+export const SideBarContext = createContext(() => {});
 
 interface Props extends SafeAreaViewProps {
     children: string | JSX.Element | JSX.Element[];
@@ -19,14 +22,9 @@ export const SideNavBarContainer = ({children} : Props) => {
     }
 
     return (
-        <>
+        <SideBarContext.Provider value={onMenuPress}>
             {children}
-            <SafeAreaView className='absolute left-5 top-3'>
-                <Pressable onPress={onMenuPress} hitSlop={5}>
-                    <Icon name='menu' color='white' size={32}/>
-                </Pressable>
-            </SafeAreaView>
             <SideNavBar animatedValue={animatedValue} visible={visible} onOutsidePress={onMenuPress} />
-        </>
+        </SideBarContext.Provider>
     );
 }
