@@ -15,13 +15,13 @@ export const TopBar = ({children, label} : Props) => {
     return (
         <View className='bg-slate-800 shadow-sm shadow-black'>
 
-            <SafeAreaView className='relative items-center top-2 flex flex-row place-content-evenly'>
+            <SafeAreaView className='relative items-center top-2 flex flex-row place-content-evenly text-center'>
                 <SafeAreaView className='ml-6 flex-1'>
                     <Pressable onPress={onMenuPress} hitSlop={5}>
                         <Icon name='menu' color='white' size={32}/>
                     </Pressable>
                 </SafeAreaView>
-                <Text className='text-white font-bold mx-auto text-xl pb-6 mt-4 -translate-x-2'>{label}</Text>
+                <Text className='text-white font-bold mx-auto text-xl pb-6 mt-4 -translate-x-2 w-3/5 text-center'>{label}</Text>
                 <View className='flex-1'></View>
             </SafeAreaView>
             
