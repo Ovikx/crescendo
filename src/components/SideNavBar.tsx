@@ -41,7 +41,7 @@ export const SideNavBar = ({ visible, animatedValue, onOutsidePress }: Props) =>
 const styles = StyleSheet.create({
     drawer: {
         position: 'absolute',
-        backgroundColor: '#777777',
+        backgroundColor: '#1F2937',
         height: height,
         width: width,
         zIndex: 999,
