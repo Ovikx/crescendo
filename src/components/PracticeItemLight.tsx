@@ -11,7 +11,7 @@ interface Props {
 export const PracticeItemLight = (props: Props) => {
     return (
         <Pressable onPress={() => {
-            props.navigation.navigate('Practice', {itemName: props.itemName});
+            props.navigation.navigate('Practice', {itemName: props.itemName, initialSeconds: 0});
         }}>
             <SafeAreaView className='shadow-sm shadow-black rounded-md bg-slate-800 flex-row justify-start items-center w-full my-1'>
                 <SafeAreaView className='ml-4 my-4'>
