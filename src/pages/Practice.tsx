@@ -28,7 +28,7 @@ export const Practice = ({navigation, route}: Props) => {
     return (
         <View className='bg-slate-900 flex-1'>
             <TopBar label={route.params.itemName} />
-            <Pressable className='flex-1 items-center mt-24' onPress={onClockPress}>
+            <Pressable className='flex items-center mt-24' onPress={onClockPress}>
                 <Clock seconds={seconds} running={running} />
             </Pressable>
         </View>
