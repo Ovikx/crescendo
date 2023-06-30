@@ -15,7 +15,7 @@ export const TopBar = ({children, label} : Props) => {
     return (
         <View className='bg-slate-800 shadow-sm shadow-black'>
 
-            <SafeAreaView className='relative items-center top-2 flex flex-row place-content-evenly text-center'>
+            <SafeAreaView className='relative items-center top-2 flex flex-row place-content-evenly'>
                 <SafeAreaView className='ml-6 flex-1'>
                     <Pressable onPress={onMenuPress} hitSlop={5}>
                         <Icon name='menu' color='white' size={32}/>
