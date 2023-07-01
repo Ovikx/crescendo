@@ -7,4 +7,5 @@ export interface PracticeItem {
 export interface PracticeSession {
     itemName: string;
     seconds: number;
+    timeStarted: number;
 }

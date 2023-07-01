@@ -19,4 +19,7 @@ export const PracticeSessionsMappings: Columns<PracticeSession> = {
     seconds: {
         dataType: ColumnType.INTEGER
     },
+    timeStarted: {
+        dataType: ColumnType.INTEGER
+    }
 }
