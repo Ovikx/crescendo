@@ -47,16 +47,19 @@ export class ExpoSQLiteORM {
                         let currIdx = versionNums.indexOf(version);
                         let migrated = false;
                         while (currIdx <= versionNums.length - 1 && versionNums[currIdx] < this.version) {
-                            const statement = sql`${activeMigrations[versionNums[currIdx]]}`;
-                            tx.executeSql(
-                                statement,
-                                undefined,
-                                () => console.log(`[OK] Executed migration SQL: ${statement}`),
-                                (_tx, err) => {
-                                    console.log(err);
-                                    return false;
-                                }
-                            )
+                            const statements = activeMigrations[versionNums[currIdx]];
+                            for (const statement of statements) {
+                                tx.executeSql(
+                                    statement,
+                                    undefined,
+                                    () => console.log(`[OK] Executed migration SQL: ${statement}`),
+                                    (_tx, err) => {
+                                        console.log(err);
+                                        return false;
+                                    }
+                                )
+                            }
+                            
                             migrated = true;
                             currIdx++;
                         }

@@ -25,11 +25,6 @@ export type RevDataTypeMapping = {
     number: ColumnType.INTEGER | ColumnType.REAL,
 }
 
-const t: ColumnDefinition<ColumnType.INTEGER> = {
-    dataType: ColumnType.INTEGER,
-    default: 3
-}
-
 export type Columns<T extends object> = {[k in keyof T]: ColumnDefinition<ColumnType>};
 
 /** Stores the data type and constraints for a column */
@@ -49,4 +44,4 @@ export interface SelectOptions<T> {
 }
 
 /** Each key is the version number to migrate from and the associate value is the SQL statement to execute (TODO: support multiple SQL statements) */
-export type Migrations = {[k: number]: string};
+export type Migrations = {[k: number]: string[]};
