@@ -10,7 +10,7 @@ export const Clock = ({seconds, running}: Props) => {
         <View className='align-center justify-center w-80 h-80 rounded-full border-slate-800 border-4 border-solid'>
             <Text className={`text-center text-6xl ${running ? 'text-white' : 'text-gray-400'} p-16`}>{formatSeconds(seconds)}</Text>
             {!running && <View className='w-full h-full absolute flex justify-center items-center rounded-full bg-black opacity-30'>
-                <Text className='text-white text-9xl text-center font-black'>| |</Text>
+                <Text className='text-white text-9xl text-center font-black'>|  |</Text>
             </View>}
         </View>
     )

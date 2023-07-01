@@ -11,15 +11,17 @@ import { Practice } from './src/pages/Practice';
 
 export default function App() {
   return (
-    <SideNavBarContainer>
+    
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{animation: 'none'}}>
-          <Stack.Screen name='Home' component={Home} options={{headerShown: false, }} />
-          <Stack.Screen name='PracticeItems' component={PracticeItems} options={{headerShown: false}}/>
-          <Stack.Screen name='PracticeLists' component={PracticeLists} options={{headerShown: false}}/>
-          <Stack.Screen name='Practice' component={Practice} options={{headerShown: false}} />
-        </Stack.Navigator>
+        <SideNavBarContainer>
+          <Stack.Navigator screenOptions={{animation: 'none'}}>
+            <Stack.Screen name='Home' component={Home} options={{headerShown: false, }} />
+            <Stack.Screen name='PracticeItems' component={PracticeItems} options={{headerShown: false}}/>
+            <Stack.Screen name='PracticeLists' component={PracticeLists} options={{headerShown: false}}/>
+            <Stack.Screen name='Practice' component={Practice} options={{headerShown: false}} />
+          </Stack.Navigator>
+        </SideNavBarContainer>
       </NavigationContainer>
-    </SideNavBarContainer>
+    
   );
 } 

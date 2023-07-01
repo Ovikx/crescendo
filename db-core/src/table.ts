@@ -1,4 +1,4 @@
-import { SelectOptions } from '../types/types';
+import { ColumnDefinition, ColumnType, SelectOptions } from '../types/types';
 import { Columns } from '../types/types';
 import * as SQLite from 'expo-sqlite';
 
@@ -16,10 +16,20 @@ export class Table<T extends object> {
     /**
      * Adds this table to the database if it doesn't exist already.
      */
-    createTable() {
+    createTable<T extends ColumnType>() {
         const cols: string[] = [];
-        for (const [colName, colType] of Object.entries(this.columns)) {
-            cols.push(`${colName} ${colType}`);
+        for (const [colName, colDef] of Object.entries(this.columns) as [string, ColumnDefinition<T>][]) {
+            let colStr = `${colName} ${colDef.dataType}`;
+            if (colDef.constraints) {
+                colStr += ` ${colDef.constraints.join(' ')}`;
+            }
+
+            if (colDef.default != undefined) {
+                console.log('default');
+                colStr += ` DEFAULT ${colDef.default}`;
+            }
+
+            cols.push(colStr);
         }
     
         const statement = `CREATE TABLE IF NOT EXISTS ${this.name} (${cols.join(', ')});`;

@@ -1,5 +1,10 @@
 import React from 'react';
-import { Dimensions, Animated, StyleSheet, View, Pressable } from 'react-native';
+import { Dimensions, Animated, StyleSheet, View, Pressable, ScrollView, Text, SafeAreaView } from 'react-native';
+import { SideNavBarButton } from './SideNavBarButton';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../navigation/types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { DB } from '../db/db';
 
 interface Props {
     visible: boolean;
@@ -11,13 +16,15 @@ const { height, width } = Dimensions.get('window');
 
 export const startAnimation = (animatedValue: Animated.Value, visible: boolean) => {
     Animated.timing(animatedValue, {
-        toValue: visible ? 0 : 0.75,
+        toValue: visible ? 0 : 1,
         duration: 500,
         useNativeDriver: true,
     }).start();
 }
 
 export const SideNavBar = ({ visible, animatedValue, onOutsidePress }: Props) => {
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, keyof RootStackParamList>>();
+
     const animationStyle = {
         transform: [{
             translateX: animatedValue.interpolate({
@@ -27,11 +34,31 @@ export const SideNavBar = ({ visible, animatedValue, onOutsidePress }: Props) =>
         }]
     }
 
+    const onHomePress = () => {
+        navigation.navigate('Home');
+        onOutsidePress();
+    }
+
+    const onDeletePress = () => {
+        DB.itemsTable.deleteTable();
+        DB.sessionsTable.deleteTable();
+        DB.itemsTable.createTable();
+        DB.sessionsTable.createTable();
+    }
+
     return (
         <View className='w-screen absolute'>
             <Pressable className={`${visible ? 'visible' : 'hidden'} bg-black opacity-20 h-screen w-screen`} onPress={onOutsidePress}/>
             <Animated.View style={[styles.drawer, animationStyle]}>
-                
+                <View className='flex flex-col h-screen mt-6 w-full'>
+                    <SafeAreaView className=' w-full border-slate-600 border-b-2'>
+                        <Text className='text-white font-bold text-3xl text-center pb-5'>Crescendo</Text>
+                    </SafeAreaView>
+                    <ScrollView className=''>
+                        <SideNavBarButton image='home' label='Home' onPress={onHomePress} />
+                        <SideNavBarButton image='close' label='Delete data' onPress={onDeletePress} />
+                    </ScrollView>
+                </View>
             </Animated.View>
             
         </View>
@@ -43,7 +70,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         backgroundColor: '#1F2937',
         height: height,
-        width: width,
+        width: width*0.75,
         zIndex: 999,
     }
 })

@@ -22,6 +22,8 @@ export const Icon = ({name, size, color}: Props) => {
             return <MaterialIcons name='add' size={size} color={color} />;
         case 'close':
             return <MaterialIcons name='close' size={size} color={color} />;
+        case 'done':
+            return <MaterialIcons name='done' size={size} color={color} />;
         default:
             return <MaterialIcons name="disabled-by-default" size={size} color={color} />;
     }
