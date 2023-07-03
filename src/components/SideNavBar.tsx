@@ -23,7 +23,7 @@ export const startAnimation = (animatedValue: Animated.Value, visible: boolean) 
 }
 
 export const SideNavBar = ({ visible, animatedValue, onOutsidePress }: Props) => {
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, keyof RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, keyof RootStackParamList, undefined>>();
 
     const animationStyle = {
         transform: [{
@@ -34,8 +34,8 @@ export const SideNavBar = ({ visible, animatedValue, onOutsidePress }: Props) =>
         }]
     }
 
-    const onHomePress = () => {
-        navigation.navigate('Home');
+    const onPagePress = (navigateCallback: () => void) => {
+        navigateCallback();
         onOutsidePress();
     }
 
@@ -55,7 +55,8 @@ export const SideNavBar = ({ visible, animatedValue, onOutsidePress }: Props) =>
                         <Text className='text-white font-bold text-3xl text-center pb-5'>Crescendo</Text>
                     </SafeAreaView>
                     <ScrollView className=''>
-                        <SideNavBarButton image='home' label='Home' onPress={onHomePress} />
+                        <SideNavBarButton image='home' label='Home' onPress={() => onPagePress(() => navigation.navigate('Home'))} />
+                        <SideNavBarButton image='list' label='Sessions' onPress={() => onPagePress(() => navigation.navigate('Sessions'))} />
                         <SideNavBarButton image='close' label='Delete data' onPress={onDeletePress} />
                     </ScrollView>
                 </View>

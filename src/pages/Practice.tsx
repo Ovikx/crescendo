@@ -6,14 +6,17 @@ import { Clock } from '../components/Clock';
 import { useEffect, useState } from 'react';
 import { PracticeToolsArray } from '../components/PracticeToolsArray';
 import { PracticeToolButton } from '../components/PracticeToolButton';
+import { DB } from '../db/db';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Practice'>;
 
 export const Practice = ({navigation, route}: Props) => {
     const [seconds, setSeconds] = useState(route.params.initialSeconds);
     const [running, setRunning] = useState(true);
+    const [startTime, _] = useState(Date.now());
     const buttonColor = 'slate-800';
 
+    // Clock updating
     useEffect(() => {
         if (running) {
             const timer = setTimeout(() => {
@@ -23,6 +26,7 @@ export const Practice = ({navigation, route}: Props) => {
             return () => clearInterval(timer);
         }
     }, [seconds, running]);
+
 
     const onClockPress = () => {
         setRunning(!running);
@@ -35,7 +39,11 @@ export const Practice = ({navigation, route}: Props) => {
 
     const onDonePress = () => {
         navigation.goBack();
-        // TODO: add session to DB
+        DB.sessionsTable.insert({
+            itemName: route.params.itemName,
+            seconds: seconds,
+            timeStarted: startTime
+        });
     }
 
     return (

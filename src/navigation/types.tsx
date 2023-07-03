@@ -6,4 +6,5 @@ export type RootStackParamList = {
         itemName: string,
         initialSeconds: number
     };
+    Sessions: undefined;
 }

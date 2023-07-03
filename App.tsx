@@ -8,6 +8,7 @@ import { PracticeLists } from './src/pages/PracticeLists';
 import { DB } from './src/db/db';
 import { SideNavBarContainer } from './src/components/SideNavBarContainer';
 import { Practice } from './src/pages/Practice';
+import { Sessions } from './src/pages/Sessions';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
             <Stack.Screen name='PracticeItems' component={PracticeItems} options={{headerShown: false}}/>
             <Stack.Screen name='PracticeLists' component={PracticeLists} options={{headerShown: false}}/>
             <Stack.Screen name='Practice' component={Practice} options={{headerShown: false}} />
+            <Stack.Screen name='Sessions' component={Sessions} options={{headerShown: false}} />
           </Stack.Navigator>
         </SideNavBarContainer>
       </NavigationContainer>
