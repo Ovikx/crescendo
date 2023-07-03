@@ -1,6 +1,7 @@
 import { ColumnDefinition, ColumnType, SelectOptions } from '../types/types';
 import { Columns } from '../types/types';
 import * as SQLite from 'expo-sqlite';
+import { sql } from './utils';
 
 export class Table<T extends object> {
     database: SQLite.WebSQLDatabase;
@@ -62,10 +63,25 @@ export class Table<T extends object> {
     select(options: SelectOptions<T>, setState: React.Dispatch<React.SetStateAction<T[]>>) {
         // Parse the columns
         const cols = options.columns?.join(', ') ?? '*';
-        const statement = `SELECT ${cols} FROM ${this.name};`;
+        let statement = `SELECT ${cols} FROM ${this.name}`;
+
+        // Handle ORDER BY options
+        if (options.orderBy != undefined) {
+            statement += ' ORDER BY';
+            for (let i = 0; i < options.orderBy.length; i++) {
+                const orderQuery = options.orderBy[i];
+                statement += ` ${orderQuery.column.toString()} ${orderQuery.ascending ? 'ASC' : 'DESC'}`;
+                
+                // To not put the comma after the last column
+                if (i != options.orderBy.length - 1) {
+                    statement += ',';
+                }
+            }
+        }
+
         this.database.transaction(tx => {
             tx.executeSql(
-                statement,
+                sql`${statement}`,
                 undefined,
                 (tx, resultSet) => {
                     setState(resultSet.rows._array);

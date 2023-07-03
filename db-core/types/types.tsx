@@ -41,6 +41,11 @@ export interface SelectOptions<T> {
     // TODO: add where 
     /** Maximum number of returned rows */
     limit?: number;
+    /** Sort order */
+    orderBy?: {
+        column: keyof T,
+        ascending: boolean
+    }[]
 }
 
 /** Each key is the version number to migrate from and the associate value is the SQL statement to execute (TODO: support multiple SQL statements) */
