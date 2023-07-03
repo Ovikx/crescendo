@@ -71,12 +71,17 @@ export class Table<T extends object> {
             for (let i = 0; i < options.orderBy.length; i++) {
                 const orderQuery = options.orderBy[i];
                 statement += ` ${orderQuery.column.toString()} ${orderQuery.ascending ? 'ASC' : 'DESC'}`;
-                
+
                 // To not put the comma after the last column
                 if (i != options.orderBy.length - 1) {
                     statement += ',';
                 }
             }
+        }
+
+        // Handle LIMIT options
+        if (options.limit != undefined) {
+            statement += ` LIMIT ${options.limit}`;
         }
 
         this.database.transaction(tx => {
