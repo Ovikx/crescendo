@@ -34,6 +34,9 @@ export interface ColumnDefinition<T extends ColumnType> {
     default?: DataTypeMapping[T];
 }
 
+
+export type SortOrder = 'ASC' | 'DESC';
+
 /** Options for querying rows from a table */
 export interface SelectOptions<T> {
     /** The names of the columns to select. Do not pass this property for querying all columns (`"*"`) */
@@ -42,10 +45,7 @@ export interface SelectOptions<T> {
     /** Maximum number of returned rows */
     limit?: number;
     /** Sort order */
-    orderBy?: {
-        column: keyof T,
-        ascending: boolean
-    }[]
+    orderBy?: {[k in keyof Partial<T>]: SortOrder}
 }
 
 /** Each key is the version number to migrate from and the associate value is the SQL statement to execute (TODO: support multiple SQL statements) */

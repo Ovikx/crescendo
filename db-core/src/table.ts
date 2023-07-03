@@ -1,4 +1,4 @@
-import { ColumnDefinition, ColumnType, SelectOptions } from '../types/types';
+import { ColumnDefinition, ColumnType, SelectOptions, SortOrder } from '../types/types';
 import { Columns } from '../types/types';
 import * as SQLite from 'expo-sqlite';
 import { sql } from './utils';
@@ -68,12 +68,14 @@ export class Table<T extends object> {
         // Handle ORDER BY options
         if (options.orderBy != undefined) {
             statement += ' ORDER BY';
-            for (let i = 0; i < options.orderBy.length; i++) {
-                const orderQuery = options.orderBy[i];
-                statement += ` ${orderQuery.column.toString()} ${orderQuery.ascending ? 'ASC' : 'DESC'}`;
+            const entries = Object.entries(options.orderBy);
+            for (let i = 0; i < entries.length; i++) {
+                const orderQuery = entries[i];
+                console.log(orderQuery);
+                statement += ` ${orderQuery[0]} ${orderQuery[1]}`;
 
                 // To not put the comma after the last column
-                if (i != options.orderBy.length - 1) {
+                if (i != entries.length - 1) {
                     statement += ',';
                 }
             }

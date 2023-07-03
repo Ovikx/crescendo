@@ -12,10 +12,10 @@ export const Sessions = ({navigation}: Props) => {
     const [sessions, setSessions] = useState<PracticeSession[]>([]);
     useEffect(() => {
         DB.sessionsTable.select({
-            orderBy: [
-                {column: 'timeStarted', ascending: false},
-                {column: 'itemName', ascending: false}
-            ]
+            orderBy: {
+                timeStarted: 'DESC',
+                itemName: 'ASC'
+            }
         },
         setSessions);
     }, []);

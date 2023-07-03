@@ -1,7 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 import { Columns, Migrations } from '../types/types';
 import { Table } from './table';
-import { sql } from './utils';
 
 export class ExpoSQLiteORM {
     /** The WebSQLDatabase object */
