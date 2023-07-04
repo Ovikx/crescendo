@@ -71,7 +71,6 @@ export class Table<T extends object> {
             const entries = Object.entries(options.orderBy);
             for (let i = 0; i < entries.length; i++) {
                 const orderQuery = entries[i];
-                console.log(orderQuery);
                 statement += ` ${orderQuery[0]} ${orderQuery[1]}`;
 
                 // To not put the comma after the last column
