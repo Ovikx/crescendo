@@ -12,7 +12,6 @@ import { Sessions } from './src/pages/Sessions';
 
 export default function App() {
   return (
-    
       <NavigationContainer>
         <SideNavBarContainer>
           <Stack.Navigator screenOptions={{animation: 'none'}}>

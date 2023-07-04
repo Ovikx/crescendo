@@ -102,7 +102,7 @@ export class Table<T extends object> {
         });
     }
     
-    insert(row: T) {
+    insert(row: T, successCallback?: () => void, errorCallback?: () => void) {
         const columns: string[] = [];
         const values: (string | number)[] = []; // don't input these directly into the SQL
         for (const [key, val] of Object.entries(row)) {
@@ -117,9 +117,11 @@ export class Table<T extends object> {
                 values,
                 () => {
                     console.log(`[OK] Executed an INSERT`);
+                    if (successCallback) successCallback();
                 },
                 (tx, err) => {
                     console.log(err);
+                    if (errorCallback) errorCallback();
                     return false;
                 }
             )

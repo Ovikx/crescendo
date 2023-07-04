@@ -1,4 +1,4 @@
-import { View, SafeAreaView, Modal, Text, Pressable, TextInput } from 'react-native';
+import { View, SafeAreaView, Modal, Text, Pressable, TextInput, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { Card } from './Card';
 import { Icon } from '../../assets/Images';
@@ -16,14 +16,23 @@ export const NewItemModal = (props: Props) => {
         setInputText('');
     };
 
+    const createAlert = () => {
+        Alert.alert(
+            'Item already exists!',
+            'You\'ve already created a practice item with this name.',
+            [
+                {text: 'OK'}
+            ]
+        )
+    }
+
     const onSubmitPress = () => {
         if (inputText.length > 0) {
-            props.setVisible(false);
             console.log(inputText);
             DB.itemsTable.insert({
                 name: inputText,
                 mastery: 0
-            });
+            }, () => props.setVisible(false), createAlert);
         }
     }
     const [inputText, setInputText] = useState('');
