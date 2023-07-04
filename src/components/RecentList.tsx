@@ -17,7 +17,6 @@ export const RecentList = ({ navigation}: PageProps) => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
-            console.log('rendering recent list');
             DB.sessionsTable.select({
                 limit: 5,
                 orderBy: {

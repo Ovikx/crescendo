@@ -6,7 +6,7 @@ interface Props extends SafeAreaViewProps {
     color: string;
 }
 
-export const Card = ({children, color: color} : Props) => {
+export const Card = ({children, color} : Props) => {
     return (
     <SafeAreaView className={`${color} shadow-sm shadow-black rounded-2xl`}>
         {children}
