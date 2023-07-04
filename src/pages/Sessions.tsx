@@ -5,6 +5,7 @@ import { TopBar } from '../components/TopBar';
 import { useState, useEffect } from 'react';
 import { PracticeSession } from '../types/types';
 import { DB } from '../db/db';
+import { RecentList } from '../components/RecentList';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Sessions'>;
 
@@ -24,6 +25,7 @@ export const Sessions = ({navigation}: Props) => {
     return (
         <View className='bg-slate-900 flex-1'>
             <TopBar label='Previous Sessions'/>
+            <RecentList navigation={navigation}/>
         </View>
     )
 }

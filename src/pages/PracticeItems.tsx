@@ -19,6 +19,7 @@ export const PracticeItems = ({navigation}: Props) => {
 
     useEffect(
         () => {
+            console.log('rendering practice items')
             DB.itemsTable.select({}, setItems);
         },
         [modalVisible]

@@ -20,9 +20,10 @@ export const Home = ({navigation}: Props) => {
             <SafeAreaView className='flex-1'>
                 <SafeAreaView className=''>
                     <OverviewStats textStyle='mt-10'/>
-                    <RecentList textStyle='mt-6' navigation={navigation}/>
+                    <SafeAreaView className='mt-6'>
+                        <RecentList navigation={navigation}/>
+                    </SafeAreaView>
                 </SafeAreaView>
-                
             </SafeAreaView>
             <View className='bottom-0 absolute'>
                 <NavBar navigation={navigation}/>
