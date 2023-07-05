@@ -1,6 +1,5 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { PracticeToolButton } from './PracticeToolButton';
-import { Text } from 'react-native';
 
 interface Props {
     placeholder?: undefined; // TODO: remove this property

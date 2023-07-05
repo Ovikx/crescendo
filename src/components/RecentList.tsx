@@ -1,12 +1,11 @@
-import { Text, SafeAreaView, ScrollView, FlatList } from 'react-native';
+import { Text, SafeAreaView, FlatList } from 'react-native';
 import { SafeAreaViewProps } from 'react-native-safe-area-context';
-import { styled } from 'nativewind';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { PracticeItemLight } from './PracticeItemLight';
 import { useState, useEffect } from 'react';
 import { DB } from '../db/db';
-import { PracticeItem, PracticeSession } from '../types/types';
+import { PracticeSession } from '../types/types';
 
 interface PageProps extends SafeAreaViewProps {
     navigation: NativeStackNavigationProp<RootStackParamList, keyof RootStackParamList, undefined>;

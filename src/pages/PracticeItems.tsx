@@ -1,4 +1,4 @@
-import { FlatList, SafeAreaView, ScrollView, TextInput, View } from "react-native"
+import { FlatList, SafeAreaView, TextInput, View } from "react-native"
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NavBar } from '../components/NavBar';
 import { RootStackParamList } from '../navigation/types';

@@ -1,11 +1,10 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
-import { SectionList, View, Text, ScrollView } from 'react-native';
+import { SectionList, View } from 'react-native';
 import { TopBar } from '../components/TopBar';
 import { useState, useEffect } from 'react';
 import { PracticeSession } from '../types/types';
 import { DB } from '../db/db';
-import { Card } from '../components/Card';
 import { SessionCard } from '../components/SessionCard';
 import { SessionSectionHeader } from '../components/SessionSectionHeader';
 import { NavBar } from '../components/NavBar';
@@ -24,8 +23,6 @@ const months = {
     10: 'November',
     11: 'December'
 };
-
-const dayLength = 86400000;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Sessions'>;
 

@@ -1,4 +1,4 @@
-import { ColumnDefinition, ColumnType, SelectOptions, SortOrder } from '../types/types';
+import { ColumnDefinition, ColumnType, SelectOptions } from '../types/types';
 import { Columns } from '../types/types';
 import * as SQLite from 'expo-sqlite';
 import { sql } from './utils';

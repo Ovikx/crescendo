@@ -1,10 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
-import { Pressable, View, Text, SafeAreaView } from 'react-native';
+import { Pressable, View, SafeAreaView } from 'react-native';
 import { TopBar } from '../components/TopBar';
 import { Clock } from '../components/Clock';
 import { useEffect, useState } from 'react';
-import { PracticeToolsArray } from '../components/PracticeToolsArray';
 import { PracticeToolButton } from '../components/PracticeToolButton';
 import { DB } from '../db/db';
 
@@ -13,7 +12,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Practice'>;
 export const Practice = ({navigation, route}: Props) => {
     const [seconds, setSeconds] = useState(route.params.initialSeconds);
     const [running, setRunning] = useState(true);
-    const [startTime, _] = useState(Date.now());
+    const [startTime, _setStartTime] = useState(Date.now());
     const buttonColor = 'slate-800';
 
     // Clock updating

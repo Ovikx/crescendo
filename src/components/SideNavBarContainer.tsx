@@ -1,8 +1,7 @@
 import { createContext, useRef, useState } from 'react';
-import { Animated, Pressable, SafeAreaView, View } from "react-native";
+import { Animated } from "react-native";
 import { SafeAreaViewProps } from 'react-native-safe-area-context';
 import { SideNavBar, startAnimation } from './SideNavBar';
-import { Icon } from '../../assets/Images';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export const SideBarContext = createContext(() => {});
