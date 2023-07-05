@@ -84,15 +84,4 @@ export class ExpoSQLiteORM {
             )
         })
     }
-
-    executeSql(query: string, args?: (string | number | null)[], successCallback?: SQLite.SQLStatementCallback, errorCallback?: SQLite.SQLStatementErrorCallback) {
-        this.database.transaction(tx => {
-            tx.executeSql(
-                query,
-                args,
-                successCallback,
-                errorCallback
-            )
-        });
-    }
 }
