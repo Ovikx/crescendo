@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, TextInput, View } from "react-native"
+import { FlatList, SafeAreaView, ScrollView, TextInput, View } from "react-native"
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { NavBar } from '../components/NavBar';
 import { RootStackParamList } from '../navigation/types';
@@ -24,11 +24,12 @@ export const PracticeItems = ({navigation}: Props) => {
         [modalVisible]
     );
 
-    const practiceItems: JSX.Element[] = [];
+    const DATA: {id: string, title: string}[] = [];
     for (let i = 0; i < items.length; i++) {
         const item = items[i];
-        practiceItems.push(<PracticeItemLight key={i} itemName={item.name} itemType='item' navigation={navigation} />);
+        DATA.push({id: i.toString(), title: item.name});
     }
+
     return (
         <View className="bg-slate-900 flex-1">
             <TopBar label='Practice Items'>
@@ -46,9 +47,15 @@ export const PracticeItems = ({navigation}: Props) => {
                 </SafeAreaView>
             </TopBar>
             <SafeAreaView className='flex-col items-center mt-3 flex-1 mb-20'>
-                <ScrollView className='w-11/12'>
-                    {practiceItems}
-                </ScrollView>
+                <FlatList
+                    className='w-11/12'
+                    data={DATA}
+                    renderItem={({item}) => {
+                        return (
+                            <PracticeItemLight itemName={item.title} itemType='item' navigation={navigation} />
+                        )
+                    }}
+                />
             </SafeAreaView>
             <SafeAreaView className='bottom-20 right-5 h-20 w-20 absolute'>
                 <FloatingAddButton onPress={setModalVisible} visible={true}/>
