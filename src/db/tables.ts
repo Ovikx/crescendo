@@ -21,5 +21,8 @@ export const PracticeSessionsMappings: Columns<PracticeSession> = {
     },
     timeStarted: {
         dataType: ColumnType.INTEGER
+    },
+    rating: {
+        dataType: ColumnType.INTEGER
     }
 }

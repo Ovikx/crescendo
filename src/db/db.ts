@@ -22,4 +22,4 @@ export class ORMWrapper extends ExpoORM {
     }
 }
 
-export const DB = new ORMWrapper('db.crescendo', 1, migrations, true);
+export const DB = new ORMWrapper('db.crescendo', 2, migrations, true);

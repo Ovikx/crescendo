@@ -42,7 +42,8 @@ export const Practice = ({navigation, route}: Props) => {
         DB.sessionsTable.insert({
             itemName: route.params.itemName,
             seconds: seconds,
-            timeStarted: startTime
+            timeStarted: startTime,
+            rating: 0
         });
     }
 
