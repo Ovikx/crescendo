@@ -19,12 +19,7 @@ export type DataTypeMapping = {
     [ColumnType.REAL]: number,
 }
 
-/** For internal use. Maps ORM-defined enum data types to default Typescript types */
-export type RevDataTypeMapping = {
-    string: ColumnType.TEXT,
-    number: ColumnType.INTEGER | ColumnType.REAL,
-}
-
+/** Maps column names to column definitions (data type and constraints) */
 export type Columns<T extends object> = {[k in keyof T]: ColumnDefinition<ColumnType>};
 
 /** Stores the data type and constraints for a column */
@@ -34,7 +29,7 @@ export interface ColumnDefinition<T extends ColumnType> {
     default?: DataTypeMapping[T];
 }
 
-
+/** Sort order for ORDER BY clause */
 export type SortOrder = 'ASC' | 'DESC';
 
 /** Options for querying rows from a table */
@@ -49,8 +44,10 @@ export interface SelectOptions<T> {
     orderBy?: {[k in keyof Partial<T>]: SortOrder}
 }
 
+/** Maps column names to WHERE clauses */
 export type WhereOptions<T> = {[k in keyof Partial<T>]: WhereOperators<T, k>}
 
+/** Logical operators for WHERE clauses */
 export interface WhereOperators<T, K extends keyof T> {
     eq?: T[K];
     neq?: T[K];
@@ -58,6 +55,8 @@ export interface WhereOperators<T, K extends keyof T> {
     lte?: T[K];
     gt?: T[K];
     gte?: T[K];
+    or?: WhereOperators<T, K>;
+    not?: WhereOperators<T, K>;
 }
 
 /** Each key is the version number to migrate from and the associate value is the SQL statement to execute (TODO: support multiple SQL statements) */
