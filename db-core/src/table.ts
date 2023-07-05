@@ -41,6 +41,9 @@ export class Table<T extends object> {
         ); // TODO: replace success callback with a user-provided callback
     }
 
+    /**
+     * Deletes the table from the database
+     */
     deleteTable() {
         this.database.transaction(tx => {
             tx.executeSql(
@@ -101,6 +104,12 @@ export class Table<T extends object> {
         });
     }
     
+    /**
+     * Inserts a row into the table
+     * @param row Row to insert into the table
+     * @param successCallback Callback function to call after a successful transaction
+     * @param errorCallback Callback function to call after a failed transaction
+     */
     insert(row: T, successCallback?: () => void, errorCallback?: () => void) {
         const columns: string[] = [];
         const values: (string | number)[] = []; // don't input these directly into the SQL
