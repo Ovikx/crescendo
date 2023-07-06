@@ -45,19 +45,18 @@ export interface SelectOptions<T> {
 }
 
 /** Maps column names to WHERE clauses */
-export type WhereOptions<T> = {[k in keyof Partial<T>]: WhereOperators<T, k>}
+export type WhereOptions<T> = {[k in keyof Partial<T>]: WhereOperators<T, k> | T[k]} | OrOperator<T>;
 
 /** Logical operators for WHERE clauses */
 export interface WhereOperators<T, K extends keyof T> {
-    eq?: T[K];
-    neq?: T[K];
     lt?: T[K];
     lte?: T[K];
     gt?: T[K];
     gte?: T[K];
-    or?: WhereOperators<T, K>;
-    not?: WhereOperators<T, K>;
+    not?: WhereOperators<T, K> | T[K];
 }
+
+export type OrOperator<T> = {or: WhereOptions<T>[]};
 
 /** Each key is the version number to migrate from and the associate value is the SQL statement to execute (TODO: support multiple SQL statements) */
 export type Migrations = {[k: number]: string[]};
