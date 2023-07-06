@@ -49,6 +49,8 @@ export type WhereOptions<T> = {[k in keyof Partial<T>]: WhereOperators<T, k> | T
 
 /** Logical operators for WHERE clauses */
 export interface WhereOperators<T, K extends keyof T> {
+    eq?: T[K];
+    neq?: T[K];
     lt?: T[K];
     lte?: T[K];
     gt?: T[K];
