@@ -62,3 +62,7 @@ export type OrOperator<T> = {$or: WhereOptions<T>[]};
 
 /** Each key is the version number to migrate from and the associate value is the SQL statement to execute (TODO: support multiple SQL statements) */
 export type Migrations = {[k: number]: string[]};
+
+export type Entries<T> = {
+    [k in keyof T]: [k, T[k]];
+}[keyof T][];
