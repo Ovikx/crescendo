@@ -55,7 +55,7 @@ export interface WhereOperators<T, K extends keyof T> {
     $lte?: T[K];
     $gt?: T[K];
     $gte?: T[K];
-    $not?: WhereOperators<T, K> | T[K] | OrOperator<T>;
+    $not?: WhereOperators<T, K> | OrOperator<T>;
 }
 
 export type OrOperator<T> = {$or: WhereOptions<T>[]};
