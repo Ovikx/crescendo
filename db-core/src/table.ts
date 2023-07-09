@@ -140,134 +140,64 @@ export class Table<T extends object> {
         });
     }
 
-    parseWhere(where: WhereOptions<T>): string { // TODO: make private
-        const chunks: string[] = [];
+    protected parseWhere(where: WhereOptions<T>): string { // TODO: make private
         const comparisonOps = new Set(['$eq', '$neq', '$lt', '$lte', '$gt', '$gte']);
+        const opToSQL = {
+            $eq: '=',
+            $neq: '!=',
+            $lt: '<',
+            $lte: '<=',
+            $gt: '>',
+            $gte: '>='
+        }
+    
         const keyIsColumn = (key: string): boolean => {
             return (!comparisonOps.has(key) && key != '$not' && key != '$or');
         }
 
-        for (const [key, val] of Object.entries(where) as Entries<WhereOptions<T>>) {
-            if (keyIsColumn(key)) {
-                console.log()
+        const processOperand = (operand: any): string => {
+            if (typeof operand == 'string') {
+                return `'${operand}'`
+            } else {
+                return operand.toString();
             }
         }
-        return '';
-    }
-}
-
-function parseWhere<T extends object>(where: WhereOptions<T>): string { // TODO: make private
-    const comparisonOps = new Set(['$eq', '$neq', '$lt', '$lte', '$gt', '$gte']);
-    const opToSQL = {
-        $eq: '=',
-        $neq: '!=',
-        $lt: '<',
-        $lte: '<=',
-        $gt: '>',
-        $gte: '>='
-    }
-
-    const keyIsColumn = (key: string): boolean => {
-        return (!comparisonOps.has(key) && key != '$not' && key != '$or');
-    }
-
-    const parseWhereHelper = (where: WhereOptions<T>): string => {
-        const chunks: string[] = [];
-
-        for (const [key, val] of Object.entries(where) as Entries<WhereOptions<T>>) {
-            if (keyIsColumn(key)) { // If the key is a column, then we know the value is either an object or a primitive
-                if (typeof val != 'object') { // If it's not an object operator, then it's an implicit $eq
-                    chunks.push(`${key} = ${val}`);
-
-                } else { // Otherwise, it's a series of operators (including $not)
-                    const regOpChunks: string[] = [];
-                    for (const [innerKey, innerVal] of Object.entries(val as WhereOperators<T, keyof T>) as [keyof typeof opToSQL | '$not', T][]) {
-                        if (innerKey != '$not') { // Operator is not $not, so treat as comparison operator
-                            regOpChunks.push(`${String(key)} ${opToSQL[innerKey]} ${innerVal}`);
-                        } else { // Operator is $not, so recur
-                            regOpChunks.push(`NOT ${parseWhereHelper({[key]: innerVal} as WhereOptions<T>)}`);
-                        }
-                        
-                    }
-            
-                    chunks.push(regOpChunks.join(' AND '));
-                }
-            } else if (key == '$or') {
-                // console.log(parseOr(val as WhereOptions<T>[]))
-                const orChunks: string[] = [];
-                for (const whereOption of (val as WhereOptions<T>[])) {
-                    orChunks.push(parseWhereHelper(whereOption));
-                }
-
-                chunks.push(`(${orChunks.join(' OR ')})`);
-            }
-        }
-        return `(${chunks.join(' AND ')})`;
-    }
-
-    const parsed = parseWhereHelper(where);
-    return parsed.slice(1, parsed.length-1);
     
+        const parseWhereHelper = (where: WhereOptions<T>): string => {
+            const chunks: string[] = [];
+    
+            for (const [key, val] of Object.entries(where) as Entries<WhereOptions<T>>) {
+                if (keyIsColumn(key)) { // If the key is a column, then we know the value is either an object or a primitive
+                    if (typeof val != 'object') { // If it's not an object operator, then it's an implicit $eq
+                        chunks.push(`${key} = ${processOperand(val)}`);
+    
+                    } else { // Otherwise, it's a series of operators (including $not)
+                        const regOpChunks: string[] = [];
+                        for (const [innerKey, innerVal] of Object.entries(val as WhereOperators<T, keyof T>) as [keyof typeof opToSQL | '$not', T][]) {
+                            if (innerKey != '$not') { // Operator is not $not, so treat as comparison operator
+                                regOpChunks.push(`${String(key)} ${opToSQL[innerKey]} ${processOperand(innerVal)}`);
+                            } else { // Operator is $not, so recur
+                                regOpChunks.push(`NOT ${parseWhereHelper({[key]: innerVal} as WhereOptions<T>)}`);
+                            }
+                            
+                        }
+                
+                        chunks.push(regOpChunks.join(' AND '));
+                    }
+                } else if (key == '$or') {
+                    // console.log(parseOr(val as WhereOptions<T>[]))
+                    const orChunks: string[] = [];
+                    for (const whereOption of (val as WhereOptions<T>[])) {
+                        orChunks.push(parseWhereHelper(whereOption));
+                    }
+    
+                    chunks.push(`${orChunks.join(' OR ')}`);
+                }
+            }
+            return `(${chunks.join(' AND ')})`;
+        }
+    
+        const parsed = parseWhereHelper(where);
+        return parsed.slice(1, parsed.length-1);
+    }
 }
-
-
-interface Person {
-    age: number;
-    gpa: number;
-    sat: number;
-    height: number;
-    money: number;
-}
-const where: WhereOptions<Person> = {
-    age: 18,
-    gpa: {$gte: 4},
-    sat: {$gte: 1450, $lt: 1580},
-    $or: [ {height: 100}, {money: { $not: {$not: {$neq: 3}} } } ]
-}
-
-const where2: WhereOptions<Person> = {
-    $or: [
-        {age: 18},
-        {money: {$not: {$lt: 1000}}}
-    ]
-}
-// ((age = 18) OR (NOT (money < 1000)))
-
-const where3: WhereOptions<Person> = {
-    $or: [
-        {$or: [
-            {age: 18, gpa: {$not: {$gte: 10, $lte: 5}}},
-            {money: {$neq: 0}}
-        ]},
-        {sat: {$gte: 1500}}
-    ],
-    height: {$gte: 100}
-}
-// (((age = 18) AND (NOT ((gpa >= 10) AND (gpa <= 5))) OR (money != 0)) OR (sat >= 1500) AND (height >= 100)
-
-const where4: WhereOptions<Person> = {
-    $or: [
-        {$or: [
-            {age: 18},
-            {gpa: 4},
-            {height: 180}
-        ]},
-        {money: {$not: {$eq: 0}}}
-    ]
-}
-
-// ((age = 18) OR (gpa = 4) OR (height = 180)) OR (NOT (money = 0))
-
-const where5: WhereOptions<Person> = {
-    age: 18,
-    gpa: 4,
-    $or: [
-        {money: 100, age: {$not: {$eq: 100, $gte: 100}}},
-        {money: 100}
-    ]
-}
-
-// age = 18 AND gpa = 4 AND (money = 100 OR )
-
-console.log(parseWhere(where5));
-// 
