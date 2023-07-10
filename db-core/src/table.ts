@@ -68,7 +68,12 @@ export class Table<T extends object> {
         const cols = options.columns?.join(', ') ?? '*';
         let statement = `SELECT ${cols} FROM ${this.name}`;
 
-        // Handle ORDER BY options
+        // Handle WHERE option
+        if (options.where != undefined && JSON.stringify(options.where) != '{}') {
+            statement += ` WHERE ${this.parseWhere(options.where)}`;
+        }
+
+        // Handle ORDER BY option
         if (options.orderBy != undefined) {
             statement += ' ORDER BY';
             const entries = Object.entries(options.orderBy);
@@ -83,7 +88,7 @@ export class Table<T extends object> {
             }
         }
 
-        // Handle LIMIT options
+        // Handle LIMIT option
         if (options.limit != undefined) {
             statement += ` LIMIT ${options.limit}`;
         }
