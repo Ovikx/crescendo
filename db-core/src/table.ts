@@ -140,6 +140,11 @@ export class Table<T extends object> {
         });
     }
 
+    /**
+     * Parses a query model into a string
+     * @param where Where options
+     * @returns Parsed SQL WHERE clause (excluding the "WHERE")
+     */
     protected parseWhere(where: WhereOptions<T>): string { // TODO: make private
         const comparisonOps = new Set(['$eq', '$neq', '$lt', '$lte', '$gt', '$gte']);
         const opToSQL = {
@@ -164,8 +169,7 @@ export class Table<T extends object> {
         }
     
         const parseWhereHelper = (where: WhereOptions<T>): string => {
-            const chunks: string[] = [];
-    
+            const chunks: string[] = [];            
             for (const [key, val] of Object.entries(where) as Entries<WhereOptions<T>>) {
                 if (keyIsColumn(key)) { // If the key is a column, then we know the value is either an object or a primitive
                     if (typeof val != 'object') { // If it's not an object operator, then it's an implicit $eq
@@ -190,14 +194,14 @@ export class Table<T extends object> {
                     for (const whereOption of (val as WhereOptions<T>[])) {
                         orChunks.push(parseWhereHelper(whereOption));
                     }
-    
-                    chunks.push(`${orChunks.join(' OR ')}`);
-                }
+                    
+                    chunks.push(`(${orChunks.join(' OR ')})`);
+                 }
             }
+
             return `(${chunks.join(' AND ')})`;
         }
     
-        const parsed = parseWhereHelper(where);
-        return parsed.slice(1, parsed.length-1);
+        return parseWhereHelper(where);
     }
 }
