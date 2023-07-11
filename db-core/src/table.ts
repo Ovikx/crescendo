@@ -109,8 +109,29 @@ export class Table<T extends object> {
         });
     }
 
-    sum(column: keyof T, where: WhereOptions<T>, setState: React.Dispatch<React.SetStateAction<number>>) {
-        // TODO
+    sum(column: keyof T, setState: React.Dispatch<React.SetStateAction<number>>, where?: WhereOptions<T>) {
+        let statement = `SELECT SUM(${String(column)}) FROM ${this.name}`;
+
+        // Handle WHERE
+        if (where != undefined && JSON.stringify(where) != '{}') {
+            statement += ` WHERE ${this.parseWhere(where)}`;
+        }
+        
+        this.database.transaction(tx => {
+            tx.executeSql(
+                sql`${statement}`,
+                undefined,
+                (tx, resultSet) => {
+                    setState(resultSet.rows._array[0][`SUM(${String(column)})`] ?? 0);
+                    
+                },
+                (tx, err) => {
+                    console.log(err);
+                    return false;
+                }
+            )
+        })
+
     }
     
     /**
