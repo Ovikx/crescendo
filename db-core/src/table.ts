@@ -17,9 +17,9 @@ export class Table<T extends object> {
     /**
      * Adds this table to the database if it doesn't exist already.
      */
-    createTable<T extends ColumnType>() {
+    createTable<T extends ColumnType, K extends keyof T>() {
         const cols: string[] = [];
-        for (const [colName, colDef] of Object.entries(this.columns) as [string, ColumnDefinition<T>][]) {
+        for (const [colName, colDef] of Object.entries(this.columns) as [string, ColumnDefinition<T, K>][]) {
             let colStr = `${colName} ${colDef.dataType}`;
             if (colDef.constraints) {
                 colStr += ` ${colDef.constraints.join(' ')}`;
