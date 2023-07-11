@@ -19,7 +19,7 @@ export const SessionCard = (props: Props) => {
 
     return (
         <Card color='bg-slate-800'>
-            <SafeAreaView className='flex flex-row justify-between py-2'>
+            <SafeAreaView className='flex flex-row justify-between py-2 items-center'>
                 <Text 
                     className='text-white font-medium text-lg ml-4 w-3/5'
                     numberOfLines={2}
