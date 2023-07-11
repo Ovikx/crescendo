@@ -1,6 +1,6 @@
 import { Table } from '../src/table';
 import SQLite from 'expo-sqlite';
-import { ColumnType, Columns, WhereOptions } from '../types/types';
+import { ColumnType, Columns, WhereOptions } from '../src/types/types';
 
 interface Student {
     name: string;

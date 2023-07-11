@@ -1,4 +1,4 @@
-import { ColumnConstraint, ColumnType, Columns } from '../../db-core/types/types';
+import { ColumnConstraint, ColumnType, Columns } from '../../db-core/src/types/types';
 import { PracticeItem, PracticeSession } from '../types/types';
 
 export const ItemsMappings: Columns<PracticeItem> = {

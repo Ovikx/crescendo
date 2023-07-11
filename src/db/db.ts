@@ -1,6 +1,6 @@
 import { ExpoORM } from '../../db-core';
 import { Table } from '../../db-core/src/table';
-import { Migrations } from '../../db-core/types/types';
+import { Migrations } from '../../db-core/src/types/types';
 import { PracticeItem, PracticeSession } from '../types/types';
 import { migrations } from './migrations';
 import { ItemsMappings, PracticeSessionsMappings } from './tables';

@@ -1,4 +1,4 @@
-import { Migrations } from '../../db-core/types/types';
+import { Migrations } from '../../db-core/src/types/types';
 
 export const migrations: Migrations = {
     0: [
