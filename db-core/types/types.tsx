@@ -12,21 +12,14 @@ export enum ColumnConstraint {
     PRIMARY_KEY = 'PRIMARY KEY'
 }
 
-/** For internal use. Maps ORM-defined enum data types to default Typescript types */
-export type DataTypeMapping = {
-    [ColumnType.TEXT]: string,
-    [ColumnType.INTEGER]: number,
-    [ColumnType.REAL]: number,
-}
-
 /** Maps column names to column definitions (data type and constraints) */
-export type Columns<T extends object> = {[k in keyof T]: ColumnDefinition<ColumnType>};
+export type Columns<T extends object> = {[k in keyof T]: ColumnDefinition<T, k>};
 
 /** Stores the data type and constraints for a column */
-export interface ColumnDefinition<T extends ColumnType> {
-    dataType: T;
+export interface ColumnDefinition<T, K extends keyof T> {
+    dataType: ColumnType;
     constraints?: ColumnConstraint[];
-    default?: DataTypeMapping[T];
+    default?: T[K];
 }
 
 /** Sort order for ORDER BY clause */
