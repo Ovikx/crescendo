@@ -4,6 +4,9 @@ import { SafeAreaViewProps } from 'react-native-safe-area-context';
 import { styled } from 'nativewind';
 import { useState, useEffect } from 'react';
 import { DB } from '../db/db';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../navigation/types';
 
 interface PageProps extends SafeAreaViewProps {
     textStyle?: SafeAreaViewProps['style'];
@@ -18,13 +21,18 @@ function secondsToHours(seconds: number): number {
 const OverviewStatsUnstyled = ({textStyle}: PageProps) => {
     const [totalSeconds, setTotalSeconds] = useState(0);
     const [recentSeconds, setRecentSeconds] = useState(0);
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, keyof RootStackParamList, undefined>>();
 
     useEffect(() => {
-        DB.sessionsTable.sum('seconds').then(value => setTotalSeconds(value ?? 0));
-        DB.sessionsTable.sum('seconds', {
-            timeStarted: { $gte: Date.now() - weekMs}
-        }).then(value => setRecentSeconds(value ?? 0));
-    }, []);
+        const unsubscribe = navigation.addListener('focus', () => {
+            DB.sessionsTable.sum('seconds').then(value => setTotalSeconds(value ?? 0));
+            DB.sessionsTable.sum('seconds', {
+                timeStarted: { $gte: Date.now() - weekMs}
+            }).then(value => setRecentSeconds(value ?? 0));
+        });
+
+        return unsubscribe;
+    }, [navigation]);
 
     return (
         <SafeAreaView style={textStyle}>
