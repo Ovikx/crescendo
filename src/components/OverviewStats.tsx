@@ -20,10 +20,10 @@ const OverviewStatsUnstyled = ({textStyle}: PageProps) => {
     const [recentSeconds, setRecentSeconds] = useState(0);
 
     useEffect(() => {
-        DB.sessionsTable.sum('seconds', setTotalSeconds);
-        DB.sessionsTable.sum('seconds', setRecentSeconds, {
+        DB.sessionsTable.sum('seconds').then(value => setTotalSeconds(value ?? 0));
+        DB.sessionsTable.sum('seconds', {
             timeStarted: { $gte: Date.now() - weekMs}
-        })
+        }).then(value => setRecentSeconds(value ?? 0));
     }, []);
 
     return (

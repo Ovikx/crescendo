@@ -21,7 +21,7 @@ export const RecentList = ({ navigation }: PageProps) => {
                 orderBy: {
                     timeStarted: 'DESC'
                 }
-            }, setSessions);
+            }).then(value => setSessions(value ?? []));
         });
 
         return unsubscribe;

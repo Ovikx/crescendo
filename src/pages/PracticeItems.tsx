@@ -19,7 +19,7 @@ export const PracticeItems = ({navigation}: Props) => {
 
     useEffect(
         () => {
-            DB.itemsTable.select({}, setItems);
+            DB.itemsTable.select({}).then(value => setItems(value ?? []));
         },
         [modalVisible]
     );

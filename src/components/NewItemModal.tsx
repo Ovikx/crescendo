@@ -28,11 +28,18 @@ export const NewItemModal = (props: Props) => {
 
     const onSubmitPress = () => {
         if (inputText.length > 0) {
-            console.log(inputText);
-            DB.itemsTable.insert({
-                name: inputText,
-                mastery: 0
-            }, () => props.setVisible(false), createAlert);
+            DB.itemsTable.select({where: {name: inputText}}).then((res) => {
+                console.log(res);
+                if (res == undefined || res.length == 0) {
+                    DB.itemsTable.insert({
+                        name: inputText,
+                        mastery: 0
+                    }).then(() => props.setVisible(false)).catch(createAlert);
+                } else {
+                    createAlert();
+                }
+            })
+            
         }
     }
     const [inputText, setInputText] = useState('');

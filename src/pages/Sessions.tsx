@@ -36,8 +36,7 @@ export const Sessions = ({navigation}: Props) => {
                     timeStarted: 'DESC',
                     itemName: 'ASC'
                 }
-            },
-            setSessions);
+            }).then(value => setSessions(value ?? []));
         });
 
         return unsubscribe;
