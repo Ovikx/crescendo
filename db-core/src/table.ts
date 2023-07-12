@@ -24,7 +24,7 @@ export class Table<T extends object> {
     /**
      * Adds this table to the database if it doesn't exist already.
      */
-    createTable<T extends ColumnType, K extends keyof T>() {
+    async createTable<T extends ColumnType, K extends keyof T>() {
         const cols: string[] = [];
         for (const [colName, colDef] of Object.entries(this.columns) as [
             string,
@@ -36,7 +36,6 @@ export class Table<T extends object> {
             }
 
             if (colDef.default != undefined) {
-                console.log('default');
                 colStr += ` DEFAULT ${colDef.default}`;
             }
 
@@ -50,23 +49,14 @@ export class Table<T extends object> {
             .transactionAsync(async (tx) => {
                 tx.executeSqlAsync(statement);
             })
-            .then(() => console.log(`[OK] Executed SQL: ${statement}`))
-            .catch((e) =>
-                console.log(`[ERR] ${e} | Executed SQL: ${statement}`)
-            ); // TODO: replace success callback with a user-provided callback
     }
 
     /**
      * Deletes the table from the database
      */
-    deleteTable() {
+    async deleteTable() {
         this.database.transactionAsync(async (tx) => {
             tx.executeSqlAsync(`DROP TABLE IF EXISTS ${this.name}`, undefined)
-                .then(() => console.log('[OK] Dropped the table'))
-                .catch((err) => {
-                    console.log(err);
-                    return false;
-                });
         });
     }
 
@@ -75,9 +65,8 @@ export class Table<T extends object> {
      * @param options Query options
      * @returns Array of results
      */
-    select(
+    async select(
         options: SelectOptions<T>,
-        setState: React.Dispatch<React.SetStateAction<T[]>>
     ) {
         // Parse the columns
         const cols = options.columns?.join(', ') ?? '*';
@@ -111,22 +100,17 @@ export class Table<T extends object> {
             statement += ` LIMIT ${options.limit}`;
         }
 
-        this.database.transactionAsync(async (tx) => {
-            tx.executeSqlAsync(sql`${statement}`)
-                .then((resultSet) => {
-                    setState(resultSet.rows as T[]);
-                    console.log(`[OK] Executed a SELECT`);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    return false;
-                });
+        let rows: T[] | undefined;
+
+        await this.database.transactionAsync(async (tx) => {
+            rows = (await tx.executeSqlAsync(sql`${statement}`)).rows as T[];
         });
+
+        return rows;
     }
 
-    sum(
+    async sum(
         column: keyof T,
-        setState: React.Dispatch<React.SetStateAction<number>>,
         where?: WhereOptions<T>
     ) {
         let statement = `SELECT SUM(${String(column)}) FROM ${this.name}`;
@@ -136,25 +120,20 @@ export class Table<T extends object> {
             statement += ` WHERE ${this.parseWhere(where)}`;
         }
 
-        this.database.transactionAsync(async (tx) => {
-            tx.executeSqlAsync(sql`${statement}`)
-                .then((resultSet) => {
-                    setState(resultSet.rows[0][`SUM(${String(column)})`] ?? 0);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    return false;
-                });
+        let sum: number | undefined;
+
+        await this.database.transactionAsync(async (tx) => {
+            sum = (await tx.executeSqlAsync(sql`${statement}`)).rows[0][`SUM(${String(column)})`] ?? 0;
         });
+
+        return sum;
     }
 
     /**
      * Inserts a row into the table
      * @param row Row to insert into the table
-     * @param successCallback Callback function to call after a successful transaction
-     * @param errorCallback Callback function to call after a failed transaction
      */
-    insert(row: T, successCallback?: () => void, errorCallback?: () => void) {
+    async insert(row: T) {
         const columns: string[] = [];
         const values: (string | number)[] = []; // don't input these directly into the SQL
         for (const [key, val] of Object.entries(row)) {
@@ -166,16 +145,7 @@ export class Table<T extends object> {
             ', '
         )}) VALUES (${Array(values.length).fill('?').join(', ')});`;
         this.database.transactionAsync(async (tx) => {
-            tx.executeSqlAsync(statement, values)
-                .then(() => {
-                    console.log(`[OK] Executed an INSERT`);
-                    if (successCallback) successCallback();
-                })
-                .catch((err) => {
-                    console.log(err);
-                    if (errorCallback) errorCallback();
-                    return false;
-                });
+            tx.executeSqlAsync(statement, values);
         });
     }
 
@@ -251,7 +221,6 @@ export class Table<T extends object> {
                         chunks.push(regOpChunks.join(' AND '));
                     }
                 } else if (key == '$or') {
-                    // console.log(parseOr(val as WhereOptions<T>[]))
                     const orChunks: string[] = [];
                     for (const whereOption of val as WhereOptions<T>[]) {
                         orChunks.push(parseWhereHelper(whereOption));
