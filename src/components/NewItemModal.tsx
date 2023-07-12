@@ -29,7 +29,6 @@ export const NewItemModal = (props: Props) => {
     const onSubmitPress = () => {
         if (inputText.length > 0) {
             DB.itemsTable.select({where: {name: inputText}}).then((res) => {
-                console.log(res);
                 if (res == undefined || res.length == 0) {
                     DB.itemsTable.insert({
                         name: inputText,
