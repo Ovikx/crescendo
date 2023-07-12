@@ -24,7 +24,7 @@ export class Table<T extends object> {
     /**
      * Adds this table to the database if it doesn't exist already.
      */
-    async createTable<T extends ColumnType, K extends keyof T>() {
+    async createTable<K extends keyof T>() {
         const cols: string[] = [];
         for (const [colName, colDef] of Object.entries(this.columns) as [
             string,
