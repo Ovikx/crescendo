@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Card } from './Card';
 import { Icon } from '../../assets/Images';
 import BaseButton from './BaseButton';
-import { DB } from '../db/db';
+import { itemsTable } from '../db/db';
 
 interface Props {
     visible: boolean;
@@ -28,9 +28,9 @@ export const NewItemModal = (props: Props) => {
 
     const onSubmitPress = () => {
         if (inputText.length > 0) {
-            DB.itemsTable.select({where: {name: inputText}}).then((res) => {
+            itemsTable.select({where: {name: inputText}}).then((res) => {
                 if (res == undefined || res.length == 0) {
-                    DB.itemsTable.insert({
+                    itemsTable.insert({
                         name: inputText,
                         mastery: 0
                     }).then(() => props.setVisible(false)).catch(createAlert);

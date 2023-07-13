@@ -7,9 +7,9 @@ import { Icon } from '../../assets/Images';
 import { PracticeItemLight } from '../components/PracticeItemLight';
 import { FloatingAddButton } from '../components/FloatingAddButton';
 import { useState, useEffect } from 'react';
-import { DB } from '../db/db';
 import { PracticeItem } from '../types/types';
 import { NewItemModal } from '../components/NewItemModal';
+import { itemsTable } from '../db/db';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PracticeItems'>;
 
@@ -19,7 +19,7 @@ export const PracticeItems = ({navigation}: Props) => {
 
     useEffect(
         () => {
-            DB.itemsTable.select({}).then(value => setItems(value ?? []));
+            itemsTable.select({}).then(value => setItems(value ?? []));
         },
         [modalVisible]
     );

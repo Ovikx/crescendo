@@ -4,10 +4,10 @@ import { SectionList, View } from 'react-native';
 import { TopBar } from '../components/TopBar';
 import { useState, useEffect } from 'react';
 import { PracticeSession } from '../types/types';
-import { DB } from '../db/db';
 import { SessionCard } from '../components/SessionCard';
 import { SessionSectionHeader } from '../components/SessionSectionHeader';
 import { NavBar } from '../components/NavBar';
+import { sessionsTable } from '../db/db';
 
 const months = {
     0: 'January',
@@ -31,7 +31,7 @@ export const Sessions = ({navigation}: Props) => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
-            DB.sessionsTable.select({
+            sessionsTable.select({
                 orderBy: {
                     timeStarted: 'DESC',
                     itemName: 'ASC'

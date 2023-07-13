@@ -5,7 +5,6 @@ import { Stack } from './src/navigation/stack';
 import { PracticeItems } from './src/pages/PracticeItems';
 import { Home } from './src/pages/Home';
 import { PracticeLists } from './src/pages/PracticeLists';
-import { DB } from './src/db/db';
 import { SideNavBarContainer } from './src/components/SideNavBarContainer';
 import { Practice } from './src/pages/Practice';
 import { Sessions } from './src/pages/Sessions';

@@ -4,8 +4,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
 import { PracticeItemLight } from './PracticeItemLight';
 import { useState, useEffect } from 'react';
-import { DB } from '../db/db';
 import { PracticeSession } from '../types/types';
+import { sessionsTable } from '../db/db';
 
 interface PageProps extends SafeAreaViewProps {
     navigation: NativeStackNavigationProp<RootStackParamList, keyof RootStackParamList, undefined>;
@@ -16,7 +16,7 @@ export const RecentList = ({ navigation }: PageProps) => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
-            DB.sessionsTable.select({
+            sessionsTable.select({
                 limit: 5,
                 orderBy: {
                     timeStarted: 'DESC'

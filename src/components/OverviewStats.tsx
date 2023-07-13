@@ -3,10 +3,10 @@ import { Card } from './Card';
 import { SafeAreaViewProps } from 'react-native-safe-area-context';
 import { styled } from 'nativewind';
 import { useState, useEffect } from 'react';
-import { DB } from '../db/db';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/types';
+import { sessionsTable } from '../db/db';
 
 interface PageProps extends SafeAreaViewProps {
     textStyle?: SafeAreaViewProps['style'];
@@ -25,8 +25,8 @@ const OverviewStatsUnstyled = ({textStyle}: PageProps) => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
-            DB.sessionsTable.sum('seconds').then(value => setTotalSeconds(value ?? 0));
-            DB.sessionsTable.sum('seconds', {
+            sessionsTable.sum('seconds').then(value => setTotalSeconds(value ?? 0));
+            sessionsTable.sum('seconds', {
                 timeStarted: { $gte: Date.now() - weekMs}
             }).then(value => setRecentSeconds(value ?? 0));
         });

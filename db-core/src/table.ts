@@ -1,6 +1,5 @@
 import {
     ColumnDefinition,
-    ColumnType,
     Entries,
     SelectOptions,
     WhereOperators,
@@ -15,10 +14,11 @@ export class Table<T extends object> {
     name: string;
     columns: Columns<T>;
 
-    constructor(db: SQLite.SQLiteDatabase, name: string, columns: Columns<T>) {
+    constructor(db: SQLite.SQLiteDatabase, name: string, columns: Columns<T>, autoCreate = false) {
         this.database = db;
         this.name = name;
         this.columns = columns;
+        if (autoCreate) this.createTable();
     }
 
     /**

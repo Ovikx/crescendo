@@ -4,7 +4,7 @@ import { SideNavBarButton } from './SideNavBarButton';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../navigation/types';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { DB } from '../db/db';
+import { itemsTable, sessionsTable } from '../db/db';
 
 interface Props {
     visible: boolean;
@@ -40,10 +40,10 @@ export const SideNavBar = ({ visible, animatedValue, onOutsidePress }: Props) =>
     }
 
     const onDeletePress = () => {
-        DB.itemsTable.deleteTable();
-        DB.sessionsTable.deleteTable();
-        DB.itemsTable.createTable();
-        DB.sessionsTable.createTable();
+        itemsTable.deleteTable();
+        sessionsTable.deleteTable();
+        itemsTable.createTable();
+        sessionsTable.createTable();
     }
 
     return (

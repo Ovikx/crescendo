@@ -5,7 +5,7 @@ import { TopBar } from '../components/TopBar';
 import { Clock } from '../components/Clock';
 import { useEffect, useState } from 'react';
 import { PracticeToolButton } from '../components/PracticeToolButton';
-import { DB } from '../db/db';
+import { sessionsTable } from '../db/db';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Practice'>;
 
@@ -38,7 +38,7 @@ export const Practice = ({navigation, route}: Props) => {
 
     const onDonePress = () => {
         navigation.goBack();
-        DB.sessionsTable.insert({
+        sessionsTable.insert({
             itemName: route.params.itemName,
             seconds: seconds,
             timeStarted: startTime,

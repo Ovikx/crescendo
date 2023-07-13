@@ -1,7 +1,7 @@
 import { ColumnConstraint, ColumnType, Columns } from '../../db-core/src/types/types';
 import { PracticeItem, PracticeSession } from '../types/types';
 
-export const ItemsMappings: Columns<PracticeItem> = {
+export const ItemsColumns: Columns<PracticeItem> = {
     name: {
         dataType: ColumnType.TEXT,
         constraints: [ColumnConstraint.PRIMARY_KEY, ColumnConstraint.UNIQUE]
@@ -12,7 +12,7 @@ export const ItemsMappings: Columns<PracticeItem> = {
     }
 }
 
-export const PracticeSessionsMappings: Columns<PracticeSession> = {
+export const PracticeSessionsColumns: Columns<PracticeSession> = {
     itemName: {
         dataType: ColumnType.TEXT
     },
