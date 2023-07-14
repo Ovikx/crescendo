@@ -1,20 +1,14 @@
-import {
-    ColumnDefinition,
-    Entries,
-    SelectOptions,
-    WhereOperators,
-    WhereOptions,
-} from './types/types';
-import { type Columns } from './types/types';
-import * as SQLite from 'expo-sqlite';
+import { ColumnDefinition, ColumnType, Entries, SelectOptions, WhereOperators, WhereOptions } from './types/types';
+import { Columns } from './types/types';
+import * as SQLite from 'expo-web-sqlite';
 import { sql } from './utils';
 
 export class Table<T extends object> {
-    database: SQLite.SQLiteDatabase;
+    database: SQLite.WebSQLDatabase;
     name: string;
     columns: Columns<T>;
 
-    constructor(db: SQLite.SQLiteDatabase, name: string, columns: Columns<T>, autoCreate = false) {
+    constructor(db: SQLite.WebSQLDatabase, name: string, columns: Columns<T>, autoCreate: boolean) {
         this.database = db;
         this.name = name;
         this.columns = columns;
@@ -24,12 +18,9 @@ export class Table<T extends object> {
     /**
      * Adds this table to the database if it doesn't exist already.
      */
-    async createTable<K extends keyof T>() {
+    async createTable<T extends ColumnType, K extends keyof T>() {
         const cols: string[] = [];
-        for (const [colName, colDef] of Object.entries(this.columns) as [
-            string,
-            ColumnDefinition<T, K>
-        ][]) {
+        for (const [colName, colDef] of Object.entries(this.columns) as [string, ColumnDefinition<T, K>][]) {
             let colStr = `${colName} ${colDef.dataType}`;
             if (colDef.constraints) {
                 colStr += ` ${colDef.constraints.join(' ')}`;
@@ -41,23 +32,33 @@ export class Table<T extends object> {
 
             cols.push(colStr);
         }
-
-        const statement = `CREATE TABLE IF NOT EXISTS ${this.name} (${cols.join(
-            ', '
-        )});`;
-        this.database
-            .transactionAsync(async (tx) => {
-                tx.executeSqlAsync(statement);
-            })
+    
+        const statement = `CREATE TABLE IF NOT EXISTS ${this.name} (${cols.join(', ')});`;
+        this.database.transaction(
+            tx => tx.executeSql(statement),
+            e => console.log(`[ERR] ${e} | Executed SQL: ${statement}`),
+            () => console.log(`[OK] Executed SQL: ${statement}`)
+        ); // TODO: replace success callback with a user-provided callback
     }
 
     /**
      * Deletes the table from the database
      */
     async deleteTable() {
-        this.database.transactionAsync(async (tx) => {
-            tx.executeSqlAsync(`DROP TABLE IF EXISTS ${this.name}`, undefined)
-        });
+        return new Promise<void>((resolve, reject) => {
+            this.database.transaction(tx => {
+                tx.executeSql(
+                    `DROP TABLE IF EXISTS ${this.name}`,
+                    undefined,
+                    () => resolve(),
+                    (_tx, err) => {
+                        console.log(err);
+                        reject(err);
+                        return false;
+                    }
+                )
+            });
+        })
     }
 
     /**
@@ -65,18 +66,13 @@ export class Table<T extends object> {
      * @param options Query options
      * @returns Array of results
      */
-    async select(
-        options: SelectOptions<T>,
-    ) {
+    async select(options: SelectOptions<T>) {
         // Parse the columns
         const cols = options.columns?.join(', ') ?? '*';
         let statement = `SELECT ${cols} FROM ${this.name}`;
 
         // Handle WHERE option
-        if (
-            options.where != undefined &&
-            JSON.stringify(options.where) != '{}'
-        ) {
+        if (options.where != undefined && JSON.stringify(options.where) != '{}') {
             statement += ` WHERE ${this.parseWhere(options.where)}`;
         }
 
@@ -100,35 +96,55 @@ export class Table<T extends object> {
             statement += ` LIMIT ${options.limit}`;
         }
 
-        let rows: T[] | undefined;
+        return new Promise<T[]>((resolve, reject) => {
+            this.database.transaction(tx => {
+                tx.executeSql(
+                    sql`${statement}`,
+                    undefined,
+                    (tx, resultSet) => {
+                        resolve(resultSet.rows._array);
+                    },
+                    (tx, err) => {
+                        console.log(err);
+                        reject(err);
+                        return false;
+                    }
+                )
+            });
+        })
 
-        await this.database.transactionAsync(async (tx) => {
-            rows = (await tx.executeSqlAsync(sql`${statement}`)).rows as T[];
-        });
-
-        return rows;
+        
     }
 
-    async sum(
-        column: keyof T,
-        where?: WhereOptions<T>
-    ) {
+    async sum(column: keyof T, where?: WhereOptions<T>) {
         let statement = `SELECT SUM(${String(column)}) FROM ${this.name}`;
 
         // Handle WHERE
         if (where != undefined && JSON.stringify(where) != '{}') {
             statement += ` WHERE ${this.parseWhere(where)}`;
         }
+        
+        return new Promise<number>((resolve, reject) => {
+            this.database.transaction(tx => {
+                tx.executeSql(
+                    sql`${statement}`,
+                    undefined,
+                    (tx, resultSet) => {
+                        resolve(resultSet.rows._array[0][`SUM(${String(column)})`] ?? 0);
+                        
+                    },
+                    (tx, err) => {
+                        console.log(err);
+                        reject(err);
+                        return false;
+                    }
+                )
+            })
+        })
+        
 
-        let sum: number | undefined;
-
-        await this.database.transactionAsync(async (tx) => {
-            sum = (await tx.executeSqlAsync(sql`${statement}`)).rows[0][`SUM(${String(column)})`] ?? 0;
-        });
-
-        return sum;
     }
-
+    
     /**
      * Inserts a row into the table
      * @param row Row to insert into the table
@@ -141,12 +157,24 @@ export class Table<T extends object> {
             values.push(val);
         }
 
-        const statement = `INSERT INTO ${this.name} (${columns.join(
-            ', '
-        )}) VALUES (${Array(values.length).fill('?').join(', ')});`;
-        this.database.transactionAsync(async (tx) => {
-            tx.executeSqlAsync(statement, values);
-        });
+        const statement = `INSERT INTO ${this.name} (${columns.join(', ')}) VALUES (${Array(values.length).fill('?').join(', ')});`;
+        return new Promise<void>((resolve, reject) => {
+            this.database.transaction( tx => {
+                tx.executeSql(
+                    statement,
+                    values,
+                    () => {
+                        resolve();
+                    },
+                    (tx, err) => {
+                        console.log(err);
+                        reject(err);
+                        return false;
+                    }
+                )
+            });
+        })
+        
     }
 
     /**
@@ -154,85 +182,63 @@ export class Table<T extends object> {
      * @param where Where options
      * @returns Parsed SQL WHERE clause (excluding the "WHERE")
      */
-    protected parseWhere(where: WhereOptions<T>): string {
-        // TODO: make private
-        const comparisonOps = new Set([
-            '$eq',
-            '$neq',
-            '$lt',
-            '$lte',
-            '$gt',
-            '$gte',
-        ]);
+    protected parseWhere(where: WhereOptions<T>): string { // TODO: make private
+        const comparisonOps = new Set(['$eq', '$neq', '$lt', '$lte', '$gt', '$gte']);
         const opToSQL = {
             $eq: '=',
             $neq: '!=',
             $lt: '<',
             $lte: '<=',
             $gt: '>',
-            $gte: '>=',
-        };
-
+            $gte: '>='
+        }
+    
         const keyIsColumn = (key: string): boolean => {
-            return !comparisonOps.has(key) && key != '$not' && key != '$or';
-        };
+            return (!comparisonOps.has(key) && key != '$not' && key != '$or');
+        }
 
         const processOperand = (operand: any): string => {
-            if (typeof operand === 'string') {
-                return `'${operand}'`;
+            if (typeof operand == 'string') {
+                return `'${operand}'`
             } else {
                 return operand.toString();
             }
-        };
-
+        }
+    
         const parseWhereHelper = (where: WhereOptions<T>): string => {
-            const chunks: string[] = [];
-            for (const [key, val] of Object.entries(where) as Entries<
-                WhereOptions<T>
-            >) {
-                if (keyIsColumn(key)) {
-                    // If the key is a column, then we know the value is either an object or a primitive
-                    if (typeof val != 'object') {
-                        // If it's not an object operator, then it's an implicit $eq
+            const chunks: string[] = [];            
+            for (const [key, val] of Object.entries(where) as Entries<WhereOptions<T>>) {
+                if (keyIsColumn(key)) { // If the key is a column, then we know the value is either an object or a primitive
+                    if (typeof val != 'object') { // If it's not an object operator, then it's an implicit $eq
                         chunks.push(`${key} = ${processOperand(val)}`);
-                    } else {
-                        // Otherwise, it's a series of operators (including $not)
+    
+                    } else { // Otherwise, it's a series of operators (including $not)
                         const regOpChunks: string[] = [];
-                        for (const [innerKey, innerVal] of Object.entries(
-                            val as WhereOperators<T, keyof T>
-                        ) as [keyof typeof opToSQL | '$not', T][]) {
-                            if (innerKey != '$not') {
-                                // Operator is not $not, so treat as comparison operator
-                                regOpChunks.push(
-                                    `${String(key)} ${
-                                        opToSQL[innerKey]
-                                    } ${processOperand(innerVal)}`
-                                );
-                            } else {
-                                // Operator is $not, so recur
-                                regOpChunks.push(
-                                    `NOT ${parseWhereHelper({
-                                        [key]: innerVal,
-                                    } as WhereOptions<T>)}`
-                                );
+                        for (const [innerKey, innerVal] of Object.entries(val as WhereOperators<T, keyof T>) as [keyof typeof opToSQL | '$not', T][]) {
+                            if (innerKey != '$not') { // Operator is not $not, so treat as comparison operator
+                                regOpChunks.push(`${String(key)} ${opToSQL[innerKey]} ${processOperand(innerVal)}`);
+                            } else { // Operator is $not, so recur
+                                regOpChunks.push(`NOT ${parseWhereHelper({[key]: innerVal} as WhereOptions<T>)}`);
                             }
+                            
                         }
-
+                
                         chunks.push(regOpChunks.join(' AND '));
                     }
                 } else if (key == '$or') {
+                    // console.log(parseOr(val as WhereOptions<T>[]))
                     const orChunks: string[] = [];
-                    for (const whereOption of val as WhereOptions<T>[]) {
+                    for (const whereOption of (val as WhereOptions<T>[])) {
                         orChunks.push(parseWhereHelper(whereOption));
                     }
-
+                    
                     chunks.push(`(${orChunks.join(' OR ')})`);
-                }
+                 }
             }
 
             return `(${chunks.join(' AND ')})`;
-        };
-
+        }
+    
         return parseWhereHelper(where);
     }
 }

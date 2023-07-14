@@ -1,24 +1,20 @@
-import * as SQLite from 'expo-sqlite';
-import { type Columns, type Migrations } from './types/types';
+import * as SQLite from 'expo-web-sqlite';
+import { Columns, Migrations } from 'expo-ink';
 import { Table } from './table';
 
 export class ExpoSQLiteORM {
     /** The WebSQLDatabase object */
-    database: SQLite.SQLiteDatabase;
+    database: SQLite.WebSQLDatabase;
     version: number;
     migrations?: Migrations;
 
     /**
-     *
+     * 
      * @param dbName Name of the database
      */
-    constructor(
-        dbName: string,
-        version = 0,
-        migrations?: Migrations,
-        autoMigrate = false
-    ) {
+    constructor(dbName: string, version=0, migrations?: Migrations, autoMigrate=false) {
         this.database = SQLite.openDatabase(dbName);
+        console.log(this.database.version);
         this.version = version;
         this.migrations = migrations;
         if (autoMigrate) this.migrate(this.migrations);
@@ -28,14 +24,9 @@ export class ExpoSQLiteORM {
      * Returns a Table using the specified table name and columns mapping
      * @param tableName Name of the table
      * @param columns An object literal mapping column names to their respective data types
-     * @param autoCreate Whether or not to automatically run CREATE TABLE on app start-up
      * @returns An SQL Table object that can perform CRUD operations
      */
-    initializeTable<T extends object>(
-        tableName: string,
-        columns: Columns<T>,
-        autoCreate: boolean
-    ): Table<T> {
+    initializeTable<T extends object>(tableName: string, columns: Columns<T>, autoCreate: boolean): Table<T> {
         return new Table(this.database, tableName, columns, autoCreate);
     }
 
@@ -45,53 +36,53 @@ export class ExpoSQLiteORM {
      */
     migrate(migrations?: Migrations) {
         const activeMigrations = migrations ?? this.migrations;
-        this.database.transactionAsync(async (tx) => {
-            tx.executeSqlAsync('PRAGMA user_version;')
-                .then(async (resultSet) => {
+        this.database.transaction(tx => {
+            tx.executeSql(
+                'PRAGMA user_version;',
+                undefined,
+                (tx, resultSet) => {
                     if (activeMigrations) {
-                        const version: number = resultSet.rows[0].user_version;
-                        const versionNums = Object.keys(activeMigrations)
-                            .map((x) => parseInt(x, 10))
-                            .sort((a, b) => a - b);
+                        const version: number = resultSet.rows._array[0]['user_version'];
+                        const versionNums = Object.keys(activeMigrations).map(x => parseInt(x)).sort((a,b) => a-b);
                         let currIdx = versionNums.indexOf(version);
                         let migrated = false;
-                        while (
-                            currIdx <= versionNums.length - 1 &&
-                            versionNums[currIdx] < this.version
-                        ) {
-                            const statements =
-                                activeMigrations[versionNums[currIdx]];
+                        while (currIdx <= versionNums.length - 1 && versionNums[currIdx] < this.version) {
+                            const statements = activeMigrations[versionNums[currIdx]];
                             for (const statement of statements) {
-                                await tx.executeSqlAsync(statement);
-                                console.log(
-                                    `[OK] Executed migration SQL: ${statement}`
-                                );
+                                tx.executeSql(
+                                    statement,
+                                    undefined,
+                                    () => console.log(`[OK] Executed migration SQL: ${statement}`),
+                                    (_tx, err) => {
+                                        console.log(err);
+                                        return false;
+                                    }
+                                )
                             }
-
+                            
                             migrated = true;
                             currIdx++;
                         }
 
                         if (migrated) {
-                            tx.executeSqlAsync(
-                                `PRAGMA user_version=${this.version};`
-                            )
-                                .then(() =>
-                                    console.log(
-                                        `Successfully migrated from user_version ${version} to user_version ${this.version}`
-                                    )
-                                )
-                                .catch((err) => {
+                            tx.executeSql(
+                                `PRAGMA user_version=${this.version};`,
+                                undefined,
+                                () => console.log(`Successfully migrated from user_version ${version} to user_version ${this.version}`),
+                                (_tx, err) => {
                                     console.log(err);
                                     return false;
-                                });
+                                }
+                            )
                         }
+                        
                     }
-                })
-                .catch((err) => {
+                },
+                (_tx, err) => {
                     console.log(err);
                     return false;
-                });
-        });
+                }
+            )
+        })
     }
 }

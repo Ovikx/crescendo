@@ -37,7 +37,7 @@ export const NewItemModal = (props: Props) => {
                 } else {
                     createAlert();
                 }
-            })
+            }).catch((err) => console.log(err))
             
         }
     }

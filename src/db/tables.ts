@@ -1,4 +1,4 @@
-import { ColumnConstraint, ColumnType, Columns } from '../../db-core/src/types/types';
+import { ColumnConstraint, ColumnType, Columns } from 'expo-ink';
 import { PracticeItem, PracticeSession } from '../types/types';
 
 export const ItemsColumns: Columns<PracticeItem> = {

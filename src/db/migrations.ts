@@ -1,4 +1,4 @@
-import { Migrations } from '../../db-core/src/types/types';
+import { Migrations } from 'expo-ink';
 
 export const migrations: Migrations = {
     0: [

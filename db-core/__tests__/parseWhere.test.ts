@@ -1,5 +1,4 @@
 import { Table } from '../src/table';
-import SQLite from 'expo-sqlite';
 import { ColumnType, Columns, WhereOptions } from '../src/types/types';
 
 interface Student {
@@ -20,7 +19,7 @@ const columns: Columns<Student> = {
 
 class TestTable<T extends object> extends Table<T> {
     constructor(columns: Columns<T>) {
-        super(undefined as any, 'test', columns);
+        super(undefined as any, 'test', columns, false);
     }
 
     testParseWhere(where: WhereOptions<T>) {

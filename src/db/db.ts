@@ -1,4 +1,4 @@
-import { ExpoSQLiteORM } from '../../db-core/src/orm';
+import { ExpoSQLiteORM } from 'expo-ink';
 import { migrations } from './migrations';
 import { ItemsColumns, PracticeSessionsColumns } from './tables';
 
