@@ -28,17 +28,10 @@ export const NewItemModal = (props: Props) => {
 
     const onSubmitPress = () => {
         if (inputText.length > 0) {
-            itemsTable.select({where: {name: inputText}}).then((res) => {
-                if (res == undefined || res.length == 0) {
-                    itemsTable.insert({
-                        name: inputText,
-                        mastery: 0
-                    }).then(() => props.setVisible(false)).catch(createAlert);
-                } else {
-                    createAlert();
-                }
-            }).catch((err) => console.log(err))
-            
+            itemsTable.insert({
+                name: inputText,
+                mastery: 0
+            }).then(() => props.setVisible(false)).catch(createAlert);
         }
     }
     const [inputText, setInputText] = useState('');
