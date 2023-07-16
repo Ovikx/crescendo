@@ -31,7 +31,9 @@ export const NewItemModal = (props: Props) => {
             itemsTable.insert({
                 name: inputText,
                 mastery: 0
-            }).then(() => props.setVisible(false)).catch(createAlert);
+            })
+            .then(() => props.setVisible(false))
+            .catch(createAlert);
         }
     }
     const [inputText, setInputText] = useState('');
