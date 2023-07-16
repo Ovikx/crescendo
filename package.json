@@ -15,7 +15,7 @@
     "@react-navigation/native-stack": "^6.9.12",
     "dotenv": "^16.0.3",
     "expo": "^49.0.0",
-    "expo-ink": "^0.3.0",
+    "expo-ink": "^0.3.3",
     "expo-status-bar": "~1.6.0",
     "expo-web-sqlite": "^1.0.2",
     "nativewind": "^2.0.11",

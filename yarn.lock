@@ -4238,12 +4238,11 @@ expo-font@~11.4.0:
   dependencies:
     fontfaceobserver "^2.1.0"
 
-expo-ink@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.npmjs.org/expo-ink/-/expo-ink-0.3.0.tgz"
-  integrity sha512-ZZUtnk/A5eTHVqBs9vzcn0TnqDDusPAO9s0CEF0QVH4K2QEaOxTXnMg3lWWNE99OtEIwdSW+mx2V9aw5U1mbLw==
+expo-ink@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.npmjs.org/expo-ink/-/expo-ink-0.3.3.tgz"
+  integrity sha512-+DmWsLiAL5YfSIwL2pxr5zWFyyitJDJnvWRfJqncIZfGdVhX+pOZHQQE1g1y96TcZplDvBJ1ac9akTFh8OByRA==
   dependencies:
-    expo "^49.0.2"
     expo-web-sqlite "^1.0.3"
 
 expo-keep-awake@~12.3.0:
@@ -4284,7 +4283,7 @@ expo-web-sqlite@^1.0.2, expo-web-sqlite@^1.0.3:
     "@expo/websql" "^1.0.1"
     expo "*"
 
-expo@*, expo@^49.0.0, expo@^49.0.2:
+expo@*, expo@^49.0.0:
   version "49.0.3"
   resolved "https://registry.npmjs.org/expo/-/expo-49.0.3.tgz"
   integrity sha512-rqoNgl5t1ZExv94y1Z/zzbw8+Aa+FFTkfF9MrIaeAk+qB8oXORSlqUUylD4GU80l6wADtjN+ayefxECum8194A==
