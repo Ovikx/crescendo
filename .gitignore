@@ -12,6 +12,7 @@ web-build/
 .env
 *testing*.ts
 .eslintrc.cjs
+.vscode/
 
 # macOS
 .DS_Store
