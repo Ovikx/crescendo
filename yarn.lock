@@ -4238,10 +4238,10 @@ expo-font@~11.4.0:
   dependencies:
     fontfaceobserver "^2.1.0"
 
-expo-ink@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.npmjs.org/expo-ink/-/expo-ink-0.2.1.tgz"
-  integrity sha512-upf2ukVnPK6i+NfIr6gJ+aBQGFDuuu/KRljFDbLu2PkNdkdKkXLehReK67NOf6y7Wxg3eTcXjUfX70HB15Vrag==
+expo-ink@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npmjs.org/expo-ink/-/expo-ink-0.3.0.tgz"
+  integrity sha512-ZZUtnk/A5eTHVqBs9vzcn0TnqDDusPAO9s0CEF0QVH4K2QEaOxTXnMg3lWWNE99OtEIwdSW+mx2V9aw5U1mbLw==
   dependencies:
     expo "^49.0.2"
     expo-web-sqlite "^1.0.3"
